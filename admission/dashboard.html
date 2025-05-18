@@ -1,0 +1,587 @@
+<?php
+// Include direct access protection
+require_once 'direct_access_protection.php';
+
+// Include required authentication check to protect this page
+require_once 'includes/required_auth.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Regional Institute of Nursing - Student Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Dashboard, Student Portal, Nursing Institute" name="keywords">
+    <meta content="Regional Institute of Nursing Student Dashboard" name="description">
+
+    <!-- Immediate redirect if directly accessed -->
+    <script>
+        // Check if we're being loaded directly (not through PHP include)
+        if (typeof window.__INCLUDED__ === 'undefined') {
+            window.location.replace('dashboard.php');
+        }
+    </script>
+
+    <!-- Favicon -->
+    <link href="../img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
+    
+    <!-- Admission CSS -->
+    <link href="css/admission.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="../index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img class="d-none d-md-block d-lg-block" src="../img/rin_logo_new.png" width="75" height="73" alt="Logo">
+            <h2 class="m-0 text-primary">
+                Regional Institute of Nursing
+            </h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="../index.html" class="nav-item nav-link">Home</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="../about.html" class="dropdown-item">About Us</a>
+                        <a href="../about.html#Objectives" class="dropdown-item">Objectives</a>
+                        <a href="../about.html#Vision" class="dropdown-item">Vision</a>
+                        <a href="../about.html#Mission" class="dropdown-item">Mission</a>
+                        <a href="../about.html#Features" class="dropdown-item">Programme Features</a>
+                        <a href="../index.html#chairperson" class="dropdown-item">Chairperson</a>
+                        <a href="../index.html#principal" class="dropdown-item">Principal</a>
+                    </div>
+                </div>
+                <a href="../facilities.html" class="nav-item nav-link">Facilities</a>
+                <a href="../courses.html" class="nav-item nav-link">Courses</a>
+                <a href="../admission.html" class="nav-item nav-link active">Admission</a>
+                <a href="../fees.html" class="nav-item nav-link">Fees</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Connect</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="../news.html" class="dropdown-item">News & Events</a>
+                        <a href="../docs/prospectus.pdf" target="_blank" class="dropdown-item">Prospectus</a>
+                        <a href="../photo-gallery.html" class="dropdown-item">Photo Gallery</a>
+                        <a href="../video-gallery.html" class="dropdown-item">Video Gallery</a>
+                        <a href="#" class="dropdown-item">Downloads</a>
+                    </div>
+                </div>
+                <a href="../contact.html" class="nav-item nav-link">Contact</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i><span id="user-name-display">My Account</span>
+                    </a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="dashboard.php" class="dropdown-item active">Dashboard</a>
+                        <a href="profile.html" class="dropdown-item">Profile</a>
+                        <a href="notifications.html" class="dropdown-item">Notifications</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="includes/logout.php" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Portal Header Start -->
+    <div class="portal-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2><i class="fas fa-tachometer-alt me-2"></i>Student Dashboard</h2>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <span class="text-white"><i class="fas fa-calendar-alt me-2"></i>Last Login: <span id="last-login-date">Loading...</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Portal Header End -->
+
+
+    <!-- Dashboard Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Welcome Section -->
+                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="alert alert-primary">
+                        <h4 class="alert-heading"><i class="fas fa-bell me-2"></i>Welcome, <span id="welcome-name">Student</span>!</h4>
+                        <p class="mb-0" id="welcome-message">Loading application status...</p>
+                    </div>
+                </div>
+                
+                <!-- Main Content and Sidebar -->
+                <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="portal-container">
+                        <h4 class="mb-4"><i class="fas fa-tasks me-2"></i>Application Status</h4>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-4 text-center">
+                                <div class="p-3 border rounded mb-3">
+                                    <h2 class="application-status status-incomplete" id="application-progress">--%</h2>
+                                    <p class="text-muted mb-0">Application Progress</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="p-3 border rounded mb-3">
+                                    <h2 class="application-status status-pending" id="application-status">--</h2>
+                                    <p class="text-muted mb-0">Review Status</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="p-3 border rounded mb-3">
+                                    <h2 class="application-status" id="application-id">--</h2>
+                                    <p class="text-muted mb-0">Application ID</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Progress -->
+                        <h5 class="mb-3">Form Completion Progress</h5>
+                        <div class="application-timeline" id="form-progress-timeline">
+                            <!-- Timeline items will be populated by JavaScript -->
+                            <div class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Loading application sections...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <a href="admission-form.php" class="btn btn-primary">
+                                <i class="fas fa-edit me-2"></i><span id="continue-button-text">Continue Application</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="portal-sidebar mb-4">
+                        <h5 class="border-bottom pb-3 mb-3"><i class="fas fa-user-circle me-2"></i>Quick Links</h5>
+                        <ul class="nav flex-column portal-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="dashboard.php">
+                                    <i class="fas fa-tachometer-alt"></i>Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admission-form.html">
+                                    <i class="fas fa-edit"></i>Continue Application
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profile.html">
+                                    <i class="fas fa-user"></i>My Profile
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="notifications.html">
+                                    <i class="fas fa-bell"></i>Notifications
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="documents.html">
+                                    <i class="fas fa-file-alt"></i>My Documents
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="help.html">
+                                    <i class="fas fa-question-circle"></i>Help & Support
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="includes/logout.php">
+                                    <i class="fas fa-sign-out-alt"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Important Dates -->
+                    <div class="portal-container mb-4">
+                        <h5><i class="fas fa-calendar-alt me-2"></i>Important Dates</h5>
+                        <div id="important-dates-container">
+                            <!-- Important dates will be populated by JavaScript -->
+                            <div class="text-center py-3">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Loading important dates...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notifications -->
+                    <div class="portal-container">
+                        <h5><i class="fas fa-bell me-2"></i>Notifications</h5>
+                        <div id="notifications-container">
+                            <!-- Notifications will be populated by JavaScript -->
+                            <div class="text-center py-3">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Loading notifications...</p>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="notifications.html" class="btn btn-sm btn-outline-primary">View All Notifications</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Dashboard End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="../about.html">About Us</a>
+                    <a class="btn btn-link" href="../contact.html">Contact Us</a>
+                    <a class="btn btn-link" href="../courses.html">Our Courses</a>
+                    <a class="btn btn-link" href="../admission.html">Admission</a>
+                    <a class="btn btn-link" href="../facilities.html">Facilities</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>G-Extension, Near Model English School, Itanagar, Arunachal Pradesh</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 9862245330, +91 9208922995</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>regionalinstituteofnursing@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-1.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <p>Subscribe to our newsletter for updates</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">Regional Institute of Nursing</a>, All Right Reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="../index.html">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FQAs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/wow/wow.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+    
+    <!-- Dashboard Javascript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if dashboard data is available
+            if (typeof window.dashboardData === 'undefined') {
+                console.error('Dashboard data not found. Please refresh the page.');
+                return;
+            }
+            
+            const data = window.dashboardData;
+            
+            // Update user information
+            if (data.user && data.user.full_name) {
+                // Update user name in navbar
+                document.getElementById('user-name-display').textContent = data.user.full_name;
+                
+                // Update welcome message
+                document.getElementById('welcome-name').textContent = data.user.first_name || 'Student';
+            }
+            
+            // Format date for display
+            function formatDate(dateString) {
+                if (!dateString) return 'N/A';
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+            
+            // Update last login date
+            if (data.user && data.user.last_login) {
+                document.getElementById('last-login-date').textContent = formatDate(data.user.last_login);
+            } else {
+                document.getElementById('last-login-date').textContent = 'First Login';
+            }
+            
+            // Update application status information
+            if (data.application) {
+                // Update progress percentage
+                const progress = data.application.progress || 0;
+                document.getElementById('application-progress').textContent = progress + '%';
+                
+                // Update status with nice formatting
+                const statusMap = {
+                    'not_started': 'Not Started',
+                    'in_progress': 'In Progress',
+                    'submitted': 'Submitted',
+                    'under_review': 'Under Review',
+                    'approved': 'Approved',
+                    'rejected': 'Rejected',
+                    'complete': 'Complete'
+                };
+                const status = statusMap[data.application.status] || data.application.status;
+                document.getElementById('application-status').textContent = status;
+                
+                // Update application ID
+                document.getElementById('application-id').textContent = data.application.application_id || 'Not Allocated';
+                
+                // Set welcome message based on status
+                let welcomeMsg = '';
+                if (data.application.status === 'not_started') {
+                    welcomeMsg = 'You have not started your application yet. Please begin your application by clicking the button below.';
+                    document.getElementById('continue-button-text').textContent = 'Start Application';
+                } else if (data.application.status === 'in_progress') {
+                    welcomeMsg = 'Your application is in progress. Please complete all sections of the admission form to finalize your application.';
+                    document.getElementById('continue-button-text').textContent = 'Continue Application';
+                } else if (data.application.status === 'submitted') {
+                    welcomeMsg = 'Your application has been submitted successfully and is awaiting review.';
+                    document.getElementById('continue-button-text').textContent = 'View Application';
+                } else if (data.application.status === 'under_review') {
+                    welcomeMsg = 'Your application is currently under review. We will notify you of any updates.';
+                    document.getElementById('continue-button-text').textContent = 'View Application';
+                } else if (data.application.status === 'approved') {
+                    welcomeMsg = 'Congratulations! Your application has been approved. Please check your email for further instructions.';
+                    document.getElementById('continue-button-text').textContent = 'View Application';
+                } else if (data.application.status === 'rejected') {
+                    welcomeMsg = 'We regret to inform you that your application has been rejected. Please check your email for more details.';
+                    document.getElementById('continue-button-text').textContent = 'View Application';
+                } else if (data.application.status === 'complete') {
+                    welcomeMsg = 'Your application process is complete. We look forward to welcoming you to our institution.';
+                    document.getElementById('continue-button-text').textContent = 'View Application';
+                }
+                document.getElementById('welcome-message').textContent = welcomeMsg;
+                
+                // Add CSS classes for status colors
+                const progressElement = document.getElementById('application-progress');
+                if (progress < 30) {
+                    progressElement.classList.add('status-incomplete');
+                } else if (progress < 100) {
+                    progressElement.classList.add('status-in-progress');
+                } else {
+                    progressElement.classList.add('status-complete');
+                }
+                
+                const statusElement = document.getElementById('application-status');
+                if (['not_started', 'rejected'].includes(data.application.status)) {
+                    statusElement.classList.add('status-incomplete');
+                } else if (['in_progress', 'submitted', 'under_review'].includes(data.application.status)) {
+                    statusElement.classList.add('status-pending');
+                } else {
+                    statusElement.classList.add('status-complete');
+                }
+            }
+            
+            // Update form progress timeline
+            if (data.sections && data.sections.length > 0) {
+                const timelineContainer = document.getElementById('form-progress-timeline');
+                timelineContainer.innerHTML = ''; // Clear loading spinner
+                
+                let currentFound = false;
+                
+                data.sections.forEach((section, index) => {
+                    // Determine section status
+                    let timelineClass = '';
+                    let statusText = '';
+                    let dateText = '';
+                    
+                    if (section.is_completed) {
+                        timelineClass = 'complete';
+                        statusText = 'Completed';
+                        dateText = section.updated_at ? 'Completed on ' + formatDate(section.updated_at).split(',')[0] : 'Completed';
+                    } else if (!currentFound) {
+                        timelineClass = 'current';
+                        statusText = 'In progress';
+                        dateText = 'Current section';
+                        currentFound = true;
+                    } else {
+                        timelineClass = '';
+                        statusText = 'Not started';
+                        dateText = 'Pending';
+                    }
+                    
+                    // Create timeline item
+                    const timelineItem = document.createElement('div');
+                    timelineItem.className = `timeline-item ${timelineClass}`;
+                    
+                    timelineItem.innerHTML = `
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">${dateText}</div>
+                            <div class="timeline-title">${section.section_name}</div>
+                            <div class="timeline-description">${statusText}</div>
+                        </div>
+                    `;
+                    
+                    timelineContainer.appendChild(timelineItem);
+                });
+            }
+            
+            // Update important dates
+            if (data.important_dates && data.important_dates.length > 0) {
+                const datesContainer = document.getElementById('important-dates-container');
+                datesContainer.innerHTML = ''; // Clear loading spinner
+                
+                // Create list group for dates
+                const listGroup = document.createElement('div');
+                listGroup.className = 'list-group list-group-flush';
+                
+                data.important_dates.forEach(date => {
+                    const formattedDate = new Date(date.event_date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                    
+                    const dateItem = document.createElement('div');
+                    dateItem.className = 'list-group-item px-0';
+                    dateItem.innerHTML = `
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">${date.title}</h6>
+                            <small class="text-primary">${formattedDate}</small>
+                        </div>
+                        <p class="mb-1 small">${date.description}</p>
+                    `;
+                    
+                    listGroup.appendChild(dateItem);
+                });
+                
+                datesContainer.appendChild(listGroup);
+            }
+            
+            // Update notifications
+            if (data.notifications && data.notifications.length > 0) {
+                const notificationsContainer = document.getElementById('notifications-container');
+                notificationsContainer.innerHTML = ''; // Clear loading spinner
+                
+                // Create list for notifications
+                const listGroup = document.createElement('div');
+                listGroup.className = 'list-group list-group-flush';
+                
+                data.notifications.forEach(notification => {
+                    const formattedDate = formatDate(notification.created_at).split(',')[0];
+                    
+                    const notificationItem = document.createElement('div');
+                    notificationItem.className = 'list-group-item px-0';
+                    
+                    // Add unread indicator if notification is not read
+                    if (!notification.is_read) {
+                        notificationItem.classList.add('notification-unread');
+                    }
+                    
+                    notificationItem.innerHTML = `
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">${notification.title}</h6>
+                            <small class="text-muted">${formattedDate}</small>
+                        </div>
+                        <p class="mb-1 small">${notification.message}</p>
+                    `;
+                    
+                    listGroup.appendChild(notificationItem);
+                });
+                
+                notificationsContainer.appendChild(listGroup);
+            }
+        });
+    </script>
+</body>
+</html> 

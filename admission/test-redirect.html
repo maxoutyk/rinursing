@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Test</title>
+</head>
+<body>
+    <h1>Testing Redirect</h1>
+    <p>This page will redirect to verify-login.html in 3 seconds...</p>
+    
+    <button id="redirectNow">Redirect Now</button>
+    
+    <script>
+        document.getElementById('redirectNow').addEventListener('click', function() {
+            try {
+                const email = 'test@example.com';
+                window.location.href = `verify-login.html?email=${encodeURIComponent(email)}`;
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+        
+        // Auto redirect after 3 seconds
+        setTimeout(function() {
+            try {
+                const email = 'test@example.com';
+                window.location.href = `verify-login.html?email=${encodeURIComponent(email)}`;
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }, 3000);
+    </script>
+</body>
+</html> 
+ 
+ 
+ 
+ 
+ 
+ 

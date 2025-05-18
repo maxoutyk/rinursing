@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Regional Institute of Nursing, Itanagar, Arunachal Pradesh</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Nursing Institute" name="keywords">
+	<meta content="Nursing Institute Itanagar" name="keywords">
+	<meta content="Itanagar Nursing Institute " name="keywords">
+	<meta content="Regional Institute" name="keywords">
+	<meta content="Nursing" name="keywords">
+	<meta content="Itanagar" name="keywords">
+    <meta content="Regional Institute of Nursing, Itanagar" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+	<style>
+		
+  .test {
+    position: relative;
+	/*width: 40%;
+	border: 2px solid blue;	*/
+	text-align: center;
+  }
+  .test img {
+     width: 90%;
+	 height: 80%
+	 position:absolute;
+	 
+  }
+  .test button{
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  
+  color: #FFFFFF;
+  background-color: #06BBCC;
+    border-color: #06BBCC;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  }
+  
+  .modal1 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content1 {
+  //background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 10px;
+  //border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+  text-align:center;
+  
+}
+
+/* The Close Button */
+.close {
+  color: #FFFFFF;
+  float: right;
+  text-align:right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #06BBCC;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+	.dot{height: 6px;width: 6px;margin-left: 20px;margin-right: 3px;margin-top: 2px !important;background-color: rgb(207,23,23);border-radius: 50%;display: inline-block}
+	
+		
+	</style>
+	
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+	
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        
+		<a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <!--<h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Regional Institute of Nursing</h2>-->
+			<img class="d-none d-md-block d-lg-block" src="img/rin_logo_new.png" width="75" height="73" alt="Logo"></img>
+			<h2 class="m-0 text-primary">
+				 Regional Institute of Nursing
+			</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.html" class="nav-item nav-link active">Home</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="about.html" class="dropdown-item">About Us</a>
+						<a href="about.html#Objectives" class="dropdown-item">Objectives</a>
+                        <a href="about.html#Vision" class="dropdown-item">Vision</a>
+                        <a href="about.html#Mission" class="dropdown-item">Mission</a>
+						<a href="about.html#Features" class="dropdown-item">Programme Features</a>
+						<a href="index.html#chairperson" class="dropdown-item">Chairperson</a>
+						<a href="index.html#principal" class="dropdown-item">Principal</a>
+                    </div>
+                </div>
+				<a href="facilities.html" class="nav-item nav-link">Facilities</a>
+                <a href="courses.html" class="nav-item nav-link">Courses</a>
+				<a href="admission.html" class="nav-item nav-link">Admission</a>
+				<a href="fees.html" class="nav-item nav-link">Fees</a>
+				<div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Connect</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="news.html" class="dropdown-item">News & Events</a>
+                        <a href="docs/prospectus.pdf" target="_blank" class="dropdown-item">Prospectus</a>
+                        <a href="photo-gallery.html" class="dropdown-item">Photo Gallery</a>
+						<a href="video-gallery.html" class="dropdown-item">Video Gallery</a>
+						<a href="#" class="dropdown-item">Downloads</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="nav-item nav-link">Contact</a>
+            </div>
+            <!--<a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>-->
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5">
+        <div class="owl-carousel header-carousel position-relative">
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="img/0I3A0171.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .4);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-upperc3se mb-3 animated slideInDown"><b>WELCOME TO REGIONAL INSTITUTE OF NURSING</b></h5>
+                                <h1 class="display-3 text-white animated slideInDown">Enriches, Envisages, Energizes & Educates</h1>
+                                <p class="fs-5 text-white mb-4 pb-2">The Birth of Regional Institute of Nursing (RIN) in June 2023 tagged the beginning of a new chapter within the framework of India’s education in the State of Arunachal Pradesh</p>
+                                <a href="about.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                <!--<a href="docs/prospectus.pdf" target="_blank" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!--
+			<div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="img/C-2.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">WELCOME TO REGIONAL INSTITUTE OF NURSING</h5>
+                                <h1 class="display-3 text-white animated slideInDown">Enriches, Envisages, Energizes & Educates</h1>
+                                <p class="fs-5 text-white mb-4 pb-2">The Birth of Regional Institute of Nursing (RIN) in June 2023 tagged the beginning of a new chapter within the framework of India’s education in the State of Arunachal Pradesh</p>
+                                <a href="about.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="img/C-3.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">WELCOME TO REGIONAL INSTITUTE OF NURSING</h5>
+                                <h1 class="display-3 text-white animated slideInDown">Enriches, Envisages, Energizes & Educates</h1>
+                                <p class="fs-5 text-white mb-4 pb-2">The Birth of Regional Institute of Nursing (RIN) in June 2023 tagged the beginning of a new chapter within the framework of India’s education in the State of Arunachal Pradesh</p>
+								
+                                <a href="about.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="img/C-4.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">WELCOME TO REGIONAL INSTITUTE OF NURSING</h5>
+                                <h1 class="display-3 text-white animated slideInDown">Enriches, Envisages, Energizes & Educates</h1>
+                                <p class="fs-5 text-white mb-4 pb-2">The Birth of Regional Institute of Nursing (RIN) in June 2023 tagged the beginning of a new chapter within the framework of India’s education in the State of Arunachal Pradesh</p>
+								
+                                <a href="about.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="img/C-5.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">WELCOME TO REGIONAL INSTITUTE OF NURSING</h5>
+                                <h1 class="display-3 text-white animated slideInDown">Enriches, Envisages, Energizes & Educates</h1>
+                                <p class="fs-5 text-white mb-4 pb-2">The Birth of Regional Institute of Nursing (RIN) in June 2023 tagged the beginning of a new chapter within the framework of India’s education in the State of Arunachal Pradesh</p>
+								
+                                <a href="about.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			-->
+        </div>
+    </div>
+    <!-- Carousel End -->
+	
+	<!--News Ticker -->
+	<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center breaking-news bg-white border-top border-bottom border-secondary ">
+                <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center bg-success py-2 text-white px-1 news "><span class="d-flex align-items-center">&nbsp;<a href="news.html">News/Notices</a></span></div>
+                <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"> 
+				<span class="dot"></span>
+				<img src="img/new_star_e0.gif" alt="new">
+				<a href="docs/tutor_advertisement.pdf" target="_blank">Advertisment for the Post of Tutor</a> 
+				<span class="dot"></span>
+				<a href="docs/advertisement_principal.pdf" target="_blank">Advertisment for the Post of Principal</a> 
+				
+				
+				<span class="dot"></span>
+				<a href="news.html"> View all...</a>
+                </marquee>
+            </div>
+        </div>
+    </div>
+</div>
+	
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                            <h5 class="mb-3">Skilled Faculty</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                            <h5 class="mb-3">Modern Labs</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-home text-primary mb-4"></i>
+                            <h5 class="mb-3">Hostel Facilty</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                            <h5 class="mb-3">Library</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+				
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                    
+					<!--<div class="position-relative h-100">-->
+                    <div class="test">    
+						<!--<img class="img-fluid position-absolute w-100 h-100" src="img/about.jpg" alt="" style="object-fit: cover;">-->
+						<!--<img class="img-fluid position-absolute w-100 h-100" src="img/about.jpg" alt="" style="object-fit: cover;">-->
+						<img src="img/college.jpg" alt="" style="object-fit: cover;">
+						
+						<!--<video src="videos/tour.mp4" controls width="75%" height="60%" ></video>-->
+						<button id="myBtn"><i class="fa fa-video"></i>&nbsp;&nbsp;Take a Tour</button>
+						
+						<!--<button type="button" class="btn btn-primary video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/JJUo8Fe3_JY" data-target="#myModal">
+							Play Video 2
+						</button>-->
+						
+                    </div>
+					
+					
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
+                    <h1 class="mb-4">Welcome to Regional Institute of Nursing (RIN)</h1>
+                    <p class="mb-4">RIN is established to enrich lives through high-quality education in Nursing and to shape nursing students to become successful professionals who serve humanity with compassion and moral guidelines, and make their lives, families, the State, Nation, and the World a better place.</p>
+                    <p class="mb-4">With the full-fledged support of the Chairperson <b>Remi Ronya</b>, theory and practical training led by highly qualified Principal <b>Rani Philip</b>, and a team of Professional Educators, and Staff,  RIN is determined by all means to grow in leaps and bounds by creating professional goal-oriented nurses of high-standards with a global outlook.</p>
+                    <!--<div class="row gy-2 gx-4 mb-4">
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International Certificate</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International Certificate</p>
+                        </div>
+                    </div>-->
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="about.html">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+	<div id="myModal" class="modal1">
+	<!-- Modal content -->
+		<div class="modal-content1">
+			<!--<span class="close">&times;</span>
+			
+			<video src="videos/tour.mp4" controls autoplay ></video>-->
+			<div class="modal-header">
+                <!--<button id="closeBtn" type="button" class="close" data-dismiss="modal1" aria-hidden="true">×</button>-->
+				<span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <iframe id="screen" width="400" height="500" src="videos/tour.mp4" frameborder="0" allowfullscreen>
+                </iframe>
+            </div>
+		</div>
+
+	</div>
+	
+	<div id="imageModal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!--
+			<div class="modal-header">
+                <h5 class="modal-title">Subscribe our Newsletter</h5>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+			-->
+			<!--<button type="button" class="btn modal-default-close" data-bs-dismiss="modal" aria-label="Close"><span style="margin-top:-0.21em;" aria-hidden="true">&times;</span></button>-->
+            
+            <div align="right" class="modal-body">
+				<button type="button" class="btn modal-default-close" data-bs-dismiss="modal" aria-label="Close"><span style="margin-top:-0.21em;" aria-hidden="true">&times;</span></button>
+				<img class="img-fluid" src="img/admission_notice_2024-25.jpg" >
+				
+                <!--<img src="img/admission_notice_2024-25.jpeg" />-->
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <!-- Courses Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
+                <h1 class="mb-5">Courses Offered</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item bg-light">
+                        <div class="text-center p-4 pb-0">                            
+                            <h5 class="mb-4">GENERAL NURSING & MIDWIFERY (GNM)</h5>
+                        </div>
+                        <div class="d-flex border-top">
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>Eligibility : 10+2 (Any Stream)</small>
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>Duration : 3 Years</small>
+                            
+                        </div>
+						<div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="img/courses1.jpeg" alt="">
+                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                                <a href="courses.html" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 30px 30px 30px;">Read More</a>
+                                <!--<a href="docs/prospectus.pdf" target="_blank" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>-->
+                            </div>
+                        </div>
+						<div class="d-flex border-top">
+                            <small class="flex-fill text-center border-end py-2"><i class="fa  text-primary me-2"></i></small>
+                            <small class="flex-fill text-center border-end py-2"><i class="fa  text-primary me-2"></i></small>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <!--
+				<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="course-item bg-light">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="img/course-2.jpg" alt="">
+                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
+                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4 pb-0">
+                            <h3 class="mb-0">$149.00</h3>
+                            <div class="mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small>(123)</small>
+                            </div>
+                            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
+                        </div>
+                        <div class="d-flex border-top">
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small>
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
+                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="course-item bg-light">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="img/course-3.jpg" alt="">
+                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
+                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4 pb-0">
+                            <h3 class="mb-0">$149.00</h3>
+                            <div class="mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small>(123)</small>
+                            </div>
+                            <h5 class="mb-4">Web Design & Development Course for Beginners</h5>
+                        </div>
+                        <div class="d-flex border-top">
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small>
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
+                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
+                        </div>
+                    </div>
+                </div>
+				-->
+			
+			</div>
+        </div>
+    </div>
+    <!-- Courses End -->
+
+
+    <!-- Team Start -->
+    <!--
+	<div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
+                <h1 class="mb-5">Expert Instructors</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-1.jpg" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Instructor Name</h5>
+                            <small>Designation</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-2.jpg" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Instructor Name</h5>
+                            <small>Designation</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-3.jpg" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Instructor Name</h5>
+                            <small>Designation</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-4.jpg" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Instructor Name</h5>
+                            <small>Designation</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	-->
+    <!-- Team End -->
+
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div id="chairperson" class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-primary px-3">Chairperson</h6>
+                <h1 class="mb-5">From Chairperson Desk!</h1>
+            </div>
+			<div class="row g-5">
+				<div class="col-lg-2 wow fadeInUp bg-light text-center p-4">
+					<img class="border rounded-circle p-2 mx-auto mb-3" src="img/0I3A0198.jpg" style="width: 150px; height: 150px;">
+						<h5 class="mb-0">Remi Ronya</h5>
+						<p>Chairperson</p>
+					
+				</div>
+				<div class="col-lg-10 wow fadeInUp bg-light text-justify p-4">
+                    <p class="mb-0">I am extremely happy and satisfied that my dream of starting Nursing Institute for making professional service-oriented nurses for the betterment of families, society, and nation has finally come true. </p>
+					<p class="mb-0">The Regional Institute of Nursing (RIN) came into being in June 2023 in Itanagar, Arunachal Pradesh. I strongly align with Florence Nightingale’s quote <i>“I attribute my success to this – I never gave or took any excuse”</i>. Hence, from now on I will never give nor take any excuses until my qualified team shape and bring-forth professional nurses who are excellent in nursing care longing to serve mankind, and to make the world a better place.</p>
+					<p class="mb-0">I look forward for the success of RIN, by implementing learner-centred approach which shift focus from teachers to students so that their lives are enriched and they become highly qualified nurses, and competent nursing personnel.</p>
+					<p class="mb-0">Steadfastly awaiting to work with professionals to shape and bring-forth qualified professional nurses, who will be predominantly on a better platform both professionally as well as personally with a global outlook.</p>
+                </div>
+			</div>
+			<!--
+			<div class="owl-carousel testimonial-carousel position-relative">
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">Client Name</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">Client Name</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">Client Name</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">Client Name</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    </div>
+                </div>
+            </div>
+			-->
+		
+		</div>
+    </div>
+    <!-- Testimonial End -->
+    
+
+	<!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div id="principal" class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-primary px-3">Principal</h6>
+                <h1 class="mb-5">Principal's Message</h1>
+            </div>
+			<div class="row g-5">
+				<div class="col-lg-2 wow fadeInUp bg-light text-center p-4">
+					<img class="border rounded-circle p-2 mx-auto mb-3" src="img/principal.jpg" style="width: 150px; height: 150px;">
+						<h5 class="mb-0">Smt. Rani Philip</h5>
+						<p>Principal</p>
+					
+				</div>
+				<div class="col-lg-10 wow fadeInUp bg-light text-justify p-4">
+                    <p class="mb-0">I sincerely appreciate you all for choosing this noble profession. As someone rightly said, “Not all angels have wings, some have scrubs.” “When you are a nurse, you know that every day you will touch a life or a life will touch yours.” The nursing profession involves physical and psychological care of the sick and is the backbone of health care.  </p>
+					<p class="mb-0">The Regional Institute of Nursing (RIN) established in June 2023 strives to train and educate dedicated professional nurses. RIN is a significantly well-infra-structured institute with dedicated professional tutors who are qualified with relevant knowledge, excellent skills, and determination to make efficient nurses with internationally accepted standards who can stand out in this fiercely competitive world.</p>
+					<p class="mb-0">I really feel honoured to function as the Principal, and it is my privilege to introduce RIN to you all. I assure you that the nursing students’ knowledge, as well as their personality, will be developed as RIN provides all the opportunities and circumstances to become an efficient nurse with critical thinking ability. </p>
+					<p class="mb-0">It is my pleasure to welcome you all to this blessed Institution. Our campus is vibrant with energy with a green environment congenial for learning. We commit ourselves to making your stay and experience here very enriching, exciting, and memorable. </p>
+					<p class="mb-0">Wishing you all the best. </p>
+                </div>
+			</div>
+			<!--
+			<div class="owl-carousel testimonial-carousel position-relative">
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">Client Name</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">Client Name</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">Client Name</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center">
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">Client Name</h5>
+                    <p>Profession</p>
+                    <div class="testimonial-text bg-light text-center p-4">
+                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    </div>
+                </div>
+            </div>
+			-->
+		
+		</div>
+    </div>
+    <!-- Testimonial End -->	
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="about.html">About Us</a>
+                    <a class="btn btn-link" href="contact.html">Contact Us</a>
+                    <a class="btn btn-link" href="#">Privacy Policy</a>
+                    <a class="btn btn-link" href="#">Terms & Condition</a>
+                    <a class="btn btn-link" href="#">FAQs & Help</a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>G-Extension, Itanagar, Arunachal Pradesh</p>
+                    <p class="mb-2"><i class="fa fa-mobile me-3"></i>+91 98639 23547</p>
+					<p class="mb-2"><i class="fa fa-phone-alt me-3"></i>0360 3561563</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>nursingschool.ita@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+					<!--<div class="owl-carousel header-carousel position-relative">
+						<div class="owl-carousel-item position-relative">
+							<img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+						</div>
+						<div class="owl-carousel-item position-relative">
+							<img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+						</div>
+					</div>-->
+					
+				
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <a href="photo-gallery.html"><img class="img-fluid bg-light p-1" src="img/0I3A0171.jpg" alt=""></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="photo-gallery.html"><img class="img-fluid bg-light p-1" src="img/C-2.jpg" alt=""></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="photo-gallery.html"><img class="img-fluid bg-light p-1" src="img/C-3.jpg" alt=""></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="photo-gallery.html"><img class="img-fluid bg-light p-1" src="img/C-4.jpg" alt=""></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="photo-gallery.html"><img class="img-fluid bg-light p-1" src="img/C-5.jpg" alt=""></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="photo-gallery.html"><img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt=""></a>
+                        </div>
+                    </div>
+                
+				</div>
+                
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-8 text-center text-md-start mb-3 mb-md-0"><span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=4gKG7dsPIkbcDtnpOBJ7HgY43bLFmRT92LjdDrcfbetnjzYDLdRMDmUjifdo"></script></span>
+                        &copy; <a class="border-bottom" href="index.html">Regional Institute of Nursing</a>, All Right Reserved.
+
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" href=#">VisionTech</a><br><br>
+                       
+                    </div>
+                    <div class="col-md-4 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="index.html">Home</a>
+                            
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+	
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#imageModal").modal('show');
+		});
+		var modal = document.getElementById("myModal");
+		var url = $("#screen").attr('src');
+		
+		// Get the button that opens the modal
+		var btn = document.getElementById("myBtn");
+		var closeBtn = document.getElementById("closeBtn");
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks on the button, open the modal
+		btn.onclick = function() {
+			$("#screen").attr('src', url);
+		  modal.style.display = "block";
+		  
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+			$("#screen").attr('src', '');
+			modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+			$("#screen").attr('src', '');
+			modal.style.display = "none";
+		  }
+		} 
+		
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #06bbcc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        h1 {
+            color: #06bbcc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Registration Form</h1>
+    <p>This is a simple test form to directly submit to the registration PHP endpoint.</p>
+    
+    <form action="includes/register.php" method="post">
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="termsAgree" required>
+                I agree to the Terms and Conditions
+            </label>
+        </div>
+        
+        <!-- Hidden field simulating reCAPTCHA -->
+        <input type="hidden" name="g-recaptcha-response" value="simulated-response">
+        
+        <button type="submit">Register</button>
+    </form>
+    
+    <hr>
+    <p><a href="register.html">Back to Regular Registration Form</a></p>
+</body>
+</html> 
+ 
+ 
+ 
+ 
+ 
+ 

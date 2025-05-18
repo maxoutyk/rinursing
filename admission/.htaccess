@@ -1,0 +1,52 @@
+# Enable PHP processing for HTML files
+AddType application/x-httpd-php .html .htm
+
+# Ensure index.html and index.php are recognized as index files
+DirectoryIndex index.html index.php
+
+# Redirect direct access to HTML files to their PHP counterparts
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Prevent direct access to the following HTML files
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.html [NC]
+    RewriteRule ^login\.html$ login.php [L,R=301]
+    RewriteRule ^register\.html$ register.php [L,R=301]
+    RewriteRule ^verify-login\.html$ verify-login.php [L,R=301]
+    RewriteRule ^forgot-password\.html$ forgot-password.php [L,R=301]
+    RewriteRule ^dashboard\.html$ dashboard.php [L,R=301]
+    RewriteRule ^admission-form\.html$ admission-form.php [L,R=301]
+</IfModule>
+
+# Security header settings
+<IfModule mod_headers.c>
+    # Prevent MIME-sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Enable XSS protection in browsers
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Set up basic security
+Options -Indexes
+ServerSignature Off
+
+# PHP error handling
+php_flag display_errors off
+php_value error_reporting 0
+
+# Redirect all pages to HTTPS if not already on HTTPS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule> 
+ 
+ 
+ 
+ 
+ 
+ 

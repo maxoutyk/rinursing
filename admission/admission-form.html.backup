@@ -1,0 +1,1541 @@
+<?php
+// Include direct access protection
+require_once 'direct_access_protection.php';
+
+// Include authentication check to prevent unauthorized users from accessing the admission form
+require_once 'includes/auth_check.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Regional Institute of Nursing - Admission Form</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Admission Form, Nursing Institute" name="keywords">
+    <meta content="Regional Institute of Nursing Admission Form" name="description">
+
+    <!-- Immediate redirect if directly accessed -->
+    <script>
+        // Check if we're being loaded directly (not through PHP include)
+        if (typeof window.__INCLUDED__ === 'undefined') {
+            window.location.replace('admission-form.php');
+        }
+    </script>
+
+    <!-- Favicon -->
+    <link href="../img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
+    
+    <!-- Admission CSS -->
+    <link href="css/admission.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="../index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img class="d-none d-md-block d-lg-block" src="../img/rin_logo_new.png" width="75" height="73" alt="Logo">
+            <h2 class="m-0 text-primary">
+                Regional Institute of Nursing
+            </h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="../index.html" class="nav-item nav-link">Home</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="../about.html" class="dropdown-item">About Us</a>
+                        <a href="../about.html#Objectives" class="dropdown-item">Objectives</a>
+                        <a href="../about.html#Vision" class="dropdown-item">Vision</a>
+                        <a href="../about.html#Mission" class="dropdown-item">Mission</a>
+                        <a href="../about.html#Features" class="dropdown-item">Programme Features</a>
+                        <a href="../index.html#chairperson" class="dropdown-item">Chairperson</a>
+                        <a href="../index.html#principal" class="dropdown-item">Principal</a>
+                    </div>
+                </div>
+                <a href="../facilities.html" class="nav-item nav-link">Facilities</a>
+                <a href="../courses.html" class="nav-item nav-link">Courses</a>
+                <a href="../admission.html" class="nav-item nav-link active">Admission</a>
+                <a href="../fees.html" class="nav-item nav-link">Fees</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Connect</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="../news.html" class="dropdown-item">News & Events</a>
+                        <a href="../docs/prospectus.pdf" target="_blank" class="dropdown-item">Prospectus</a>
+                        <a href="../photo-gallery.html" class="dropdown-item">Photo Gallery</a>
+                        <a href="../video-gallery.html" class="dropdown-item">Video Gallery</a>
+                        <a href="#" class="dropdown-item">Downloads</a>
+                    </div>
+                </div>
+                <a href="../contact.html" class="nav-item nav-link">Contact</a>
+                <div class="nav-item">
+                    <a href="dashboard.html" class="nav-item nav-link">
+                        <i class="fas fa-user-circle me-1"></i>My Account
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="login.html" class="nav-item nav-link text-danger">
+                        <i class="fas fa-sign-out-alt me-1"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Portal Header Start -->
+    <div class="portal-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2><i class="fas fa-edit me-2"></i>Admission Application</h2>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div><span class="text-white"><i class="fas fa-save me-2"></i>Progress is saved automatically</span></div>
+                    <div><span class="text-white"><i class="fas fa-headset me-2"></i>Need help? Contact: <a href="mailto:admissions@rinursing.edu" class="text-white text-decoration-underline">admissions@rinursing.edu</a> | <a href="tel:+919862245330" class="text-white text-decoration-underline">+91 9862245330</a></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Portal Header End -->
+
+
+    <!-- Form Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <h4 class="mb-3">Complete Your Application</h4>
+                <p>Please fill out all sections of the form accurately. Fields marked with <span class="text-danger">*</span> are mandatory.</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Left sidebar for quick navigation -->
+                <div class="col-lg-3 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portal-sidebar mb-4">
+                        <h5 class="border-bottom pb-3 mb-3"><i class="fas fa-list-alt me-2"></i>Form Sections</h5>
+                        <ul class="nav flex-column portal-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" data-step="0">
+                                    <i class="fas fa-user me-2"></i>Basic Information
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-step="1">
+                                    <i class="fas fa-users me-2"></i>Parents/Guardian
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-step="2">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Address Details
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-step="3">
+                                    <i class="fas fa-id-card me-2"></i>Personal Details
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-step="4">
+                                    <i class="fas fa-graduation-cap me-2"></i>Academic (10th)
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-step="5">
+                                    <i class="fas fa-graduation-cap me-2"></i>Academic (12th)
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-step="6">
+                                    <i class="fas fa-award me-2"></i>Other Qualifications
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-step="7">
+                                    <i class="fas fa-file-upload me-2"></i>Documents
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-step="8">
+                                    <i class="fas fa-check-circle me-2"></i>Declaration
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Main form content -->
+                <div class="col-lg-9 col-md-12 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="portal-container">
+                        <form id="admissionForm" action="#" method="post" enctype="multipart/form-data">
+                            
+                            <!-- Step 1: Basic Information -->
+                            <div class="form-step active" id="step1">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-user me-2"></i>Basic Information</h5>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label for="courseApplied" class="form-label required-field">Course Applied</label>
+                                            <input type="text" class="form-control" id="courseApplied" name="courseApplied" value="General Nursing and Midwifery (GNM)" readonly>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label for="fullName" class="form-label required-field">Full Name of the Applicant</label>
+                                            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full name in BLOCK LETTERS" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label for="dob" class="form-label required-field">Date of Birth</label>
+                                            <input type="date" class="form-control" id="dob" name="dob" required>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label class="form-label required-field">Sex</label>
+                                            <div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="sex" id="male" value="Male" required>
+                                                    <label class="form-check-label" for="male">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="sex" id="female" value="Female" required>
+                                                    <label class="form-check-label" for="female">Female</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="sex" id="other" value="Other" required>
+                                                    <label class="form-check-label" for="other">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Parent/Guardian Details -->
+                            <div class="form-step" id="step2">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-users me-2"></i>Parent/Guardian Details</h5>
+                                    
+                                    <!-- Father's Details -->
+                                    <div class="mb-4">
+                                        <h6 class="text-primary mb-3">Father's Details</h6>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="fatherName" class="form-label required-field">Father's Name</label>
+                                                <input type="text" class="form-control" id="fatherName" name="fatherName" placeholder="Enter father's name" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="fatherOccupation" class="form-label required-field">Occupation</label>
+                                                <input type="text" class="form-control" id="fatherOccupation" name="fatherOccupation" placeholder="Enter occupation" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="fatherMobile" class="form-label required-field">Mobile No.</label>
+                                                <input type="tel" class="form-control" id="fatherMobile" name="fatherMobile" placeholder="Enter mobile number" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="fatherEmail" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="fatherEmail" name="fatherEmail" placeholder="Enter email address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Mother's Details -->
+                                    <div class="mb-4">
+                                        <h6 class="text-primary mb-3">Mother's Details</h6>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="motherName" class="form-label required-field">Mother's Name</label>
+                                                <input type="text" class="form-control" id="motherName" name="motherName" placeholder="Enter mother's name" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="motherOccupation" class="form-label required-field">Occupation</label>
+                                                <input type="text" class="form-control" id="motherOccupation" name="motherOccupation" placeholder="Enter occupation" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="motherMobile" class="form-label required-field">Mobile No.</label>
+                                                <input type="tel" class="form-control" id="motherMobile" name="motherMobile" placeholder="Enter mobile number" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="motherEmail" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="motherEmail" name="motherEmail" placeholder="Enter email address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Guardian Details -->
+                                    <div>
+                                        <h6 class="text-primary mb-3">Guardian's Details (if different from parents)</h6>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="guardianName" class="form-label">Name of Guardian</label>
+                                                <input type="text" class="form-control" id="guardianName" name="guardianName" placeholder="Enter guardian's name">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="relationToApplicant" class="form-label">Relation to Applicant</label>
+                                                <input type="text" class="form-control" id="relationToApplicant" name="relationToApplicant" placeholder="Enter relation">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-4">
+                                                <label for="guardianMobile" class="form-label">Mobile No.</label>
+                                                <input type="tel" class="form-control" id="guardianMobile" name="guardianMobile" placeholder="Enter mobile number">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="guardianEmail" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="guardianEmail" name="guardianEmail" placeholder="Enter email address">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="guardianOccupation" class="form-label">Occupation</label>
+                                                <input type="text" class="form-control" id="guardianOccupation" name="guardianOccupation" placeholder="Enter occupation">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="guardianAddress" class="form-label">Guardian Address</label>
+                                                <textarea class="form-control" id="guardianAddress" name="guardianAddress" rows="3" placeholder="Enter guardian's address"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Address Details -->
+                            <div class="form-step" id="step3">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-home me-2"></i>Address Details</h5>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label for="permanentAddress" class="form-label required-field">Permanent Address</label>
+                                            <textarea class="form-control" id="permanentAddress" name="permanentAddress" rows="3" placeholder="Enter your permanent address in BLOCK LETTERS" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label for="presentAddress" class="form-label required-field">Present Address</label>
+                                            <textarea class="form-control" id="presentAddress" name="presentAddress" rows="3" placeholder="Enter your present address in BLOCK LETTERS" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-md-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="sameAsPermAddress">
+                                                <label class="form-check-label" for="sameAsPermAddress">
+                                                    Same as Permanent Address
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: Personal Details -->
+                            <div class="form-step" id="step4">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-id-card me-2"></i>Personal Details</h5>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="nationality" class="form-label required-field">Nationality</label>
+                                            <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter nationality" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="religion" class="form-label required-field">Religion</label>
+                                            <input type="text" class="form-control" id="religion" name="religion" placeholder="Enter religion" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="caste" class="form-label required-field">Caste</label>
+                                            <input type="text" class="form-control" id="caste" name="caste" placeholder="Enter caste" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="casteFile" class="form-label">SC/ST Certificate (if applicable)</label>
+                                            <input type="file" class="form-control" id="casteFile" name="casteFile">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label for="maritalStatus" class="form-label required-field">Marital Status</label>
+                                            <select class="form-select" id="maritalStatus" name="maritalStatus" required>
+                                                <option value="" selected disabled>Select</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="motherTongue" class="form-label required-field">Mother Tongue</label>
+                                            <input type="text" class="form-control" id="motherTongue" name="motherTongue" placeholder="Enter mother tongue" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="annualIncome" class="form-label required-field">Annual Family Income</label>
+                                            <input type="text" class="form-control" id="annualIncome" name="annualIncome" placeholder="Enter annual income" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 5: Academic Information (10th) -->
+                            <div class="form-step" id="step5">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-graduation-cap me-2"></i>Academic Information</h5>
+                                    
+                                    <!-- 10th Standard -->
+                                    <div class="mb-4">
+                                        <h6 class="text-primary mb-3">SSCE (10th) Details</h6>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="schoolName10th" class="form-label required-field">Name & Address of School</label>
+                                                <textarea class="form-control" id="schoolName10th" name="schoolName10th" rows="2" placeholder="Enter school name and address" required></textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="board10th" class="form-label required-field">Board</label>
+                                                <input type="text" class="form-control" id="board10th" name="board10th" placeholder="Enter board name" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <label for="totalMarks10th" class="form-label required-field">Total Marks</label>
+                                                <input type="number" class="form-control" id="totalMarks10th" name="totalMarks10th" placeholder="Total marks" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="marksObtained10th" class="form-label required-field">Marks Obtained</label>
+                                                <input type="number" class="form-control" id="marksObtained10th" name="marksObtained10th" placeholder="Marks obtained" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="percentage10th" class="form-label required-field">Percentage</label>
+                                                <input type="number" step="0.01" class="form-control" id="percentage10th" name="percentage10th" placeholder="Percentage" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="yearOfPassing10th" class="form-label required-field">Year of Passing</label>
+                                                <input type="number" class="form-control" id="yearOfPassing10th" name="yearOfPassing10th" placeholder="Year" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label class="form-label required-field">Mode</label>
+                                                <div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="mode10th" id="regular10th" value="Regular" required>
+                                                        <label class="form-check-label" for="regular10th">Regular</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="mode10th" id="private10th" value="Private" required>
+                                                        <label class="form-check-label" for="private10th">Private</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="remarks10th" class="form-label">Remarks</label>
+                                                <textarea class="form-control" id="remarks10th" name="remarks10th" rows="2" placeholder="Any additional information about your 10th standard education"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 6: Academic Information (12th) -->
+                            <div class="form-step" id="step6">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-graduation-cap me-2"></i>Academic Information</h5>
+                                    
+                                    <!-- 12th Standard -->
+                                    <div class="mb-4">
+                                        <h6 class="text-primary mb-3">HSCE (10+2) Details</h6>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="schoolName12th" class="form-label required-field">Name & Address of School/College</label>
+                                                <textarea class="form-control" id="schoolName12th" name="schoolName12th" rows="2" placeholder="Enter school/college name and address" required></textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="board12th" class="form-label required-field">Board</label>
+                                                <input type="text" class="form-control" id="board12th" name="board12th" placeholder="Enter board name" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="subjects12th" class="form-label required-field">Subjects</label>
+                                                <input type="text" class="form-control" id="subjects12th" name="subjects12th" placeholder="Enter subjects separated by commas" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label class="form-label required-field">Subject Details</label>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead class="table-light">
+                                                            <tr>
+                                                                <th>Subject Name</th>
+                                                                <th>Total Marks</th>
+                                                                <th>Marks Obtained</th>
+                                                                <th>Percentage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="subjectTable12th">
+                                                            <tr>
+                                                                <td><input type="text" class="form-control" name="subject12th[]" placeholder="Subject name" required></td>
+                                                                <td><input type="number" class="form-control subject-total-12" name="subjectTotal12th[]" placeholder="Total" required></td>
+                                                                <td><input type="number" class="form-control subject-obtained-12" name="subjectObtained12th[]" placeholder="Obtained" required></td>
+                                                                <td><input type="number" step="0.01" class="form-control subject-percentage-12" name="subjectPercentage12th[]" placeholder="%" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" class="form-control" name="subject12th[]" placeholder="Subject name" required></td>
+                                                                <td><input type="number" class="form-control subject-total-12" name="subjectTotal12th[]" placeholder="Total" required></td>
+                                                                <td><input type="number" class="form-control subject-obtained-12" name="subjectObtained12th[]" placeholder="Obtained" required></td>
+                                                                <td><input type="number" step="0.01" class="form-control subject-percentage-12" name="subjectPercentage12th[]" placeholder="%" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" class="form-control" name="subject12th[]" placeholder="Subject name" required></td>
+                                                                <td><input type="number" class="form-control subject-total-12" name="subjectTotal12th[]" placeholder="Total" required></td>
+                                                                <td><input type="number" class="form-control subject-obtained-12" name="subjectObtained12th[]" placeholder="Obtained" required></td>
+                                                                <td><input type="number" step="0.01" class="form-control subject-percentage-12" name="subjectPercentage12th[]" placeholder="%" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" class="form-control" name="subject12th[]" placeholder="Subject name" required></td>
+                                                                <td><input type="number" class="form-control subject-total-12" name="subjectTotal12th[]" placeholder="Total" required></td>
+                                                                <td><input type="number" class="form-control subject-obtained-12" name="subjectObtained12th[]" placeholder="Obtained" required></td>
+                                                                <td><input type="number" step="0.01" class="form-control subject-percentage-12" name="subjectPercentage12th[]" placeholder="%" readonly></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" class="form-control" name="subject12th[]" placeholder="Subject name"></td>
+                                                                <td><input type="number" class="form-control subject-total-12" name="subjectTotal12th[]" placeholder="Total"></td>
+                                                                <td><input type="number" class="form-control subject-obtained-12" name="subjectObtained12th[]" placeholder="Obtained"></td>
+                                                                <td><input type="number" step="0.01" class="form-control subject-percentage-12" name="subjectPercentage12th[]" placeholder="%" readonly></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <label for="totalMarks12th" class="form-label required-field">Total Marks</label>
+                                                <input type="number" class="form-control" id="totalMarks12th" name="totalMarks12th" placeholder="Total marks" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="marksObtained12th" class="form-label required-field">Marks Obtained</label>
+                                                <input type="number" class="form-control" id="marksObtained12th" name="marksObtained12th" placeholder="Marks obtained" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="percentage12th" class="form-label required-field">Percentage</label>
+                                                <input type="number" step="0.01" class="form-control" id="percentage12th" name="percentage12th" placeholder="Percentage" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="yearOfPassing12th" class="form-label required-field">Year of Passing</label>
+                                                <input type="number" class="form-control" id="yearOfPassing12th" name="yearOfPassing12th" placeholder="Year" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label class="form-label required-field">Mode</label>
+                                                <div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="mode12th" id="regular12th" value="Regular" required>
+                                                        <label class="form-check-label" for="regular12th">Regular</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="mode12th" id="private12th" value="Private" required>
+                                                        <label class="form-check-label" for="private12th">Private</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="remarks12th" class="form-label">Remarks</label>
+                                                <textarea class="form-control" id="remarks12th" name="remarks12th" rows="2" placeholder="Any additional information about your 12th standard education"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 7: Other Qualifications -->
+                            <div class="form-step" id="step7">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-graduation-cap me-2"></i>Other Qualifications</h5>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="otherQualification" class="form-label">Qualification Name</label>
+                                            <input type="text" class="form-control" id="otherQualification" name="otherQualification" placeholder="Enter qualification name">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="schoolNameOther" class="form-label">Name & Address of School/College</label>
+                                            <textarea class="form-control" id="schoolNameOther" name="schoolNameOther" rows="2" placeholder="Enter school/college name and address"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="otherQualificationBoard" class="form-label">Board/University</label>
+                                            <input type="text" class="form-control" id="otherQualificationBoard" name="otherQualificationBoard" placeholder="Enter board/university name">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="subjectsOther" class="form-label">Subjects</label>
+                                            <input type="text" class="form-control" id="subjectsOther" name="subjectsOther" placeholder="Enter subjects separated by commas">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <label for="totalMarksOther" class="form-label">Total Marks</label>
+                                            <input type="number" class="form-control" id="totalMarksOther" name="totalMarksOther" placeholder="Total marks">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="marksObtainedOther" class="form-label">Marks Obtained</label>
+                                            <input type="number" class="form-control" id="marksObtainedOther" name="marksObtainedOther" placeholder="Marks obtained">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="percentageOther" class="form-label">Percentage</label>
+                                            <input type="number" step="0.01" class="form-control" id="percentageOther" name="percentageOther" placeholder="Percentage">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="otherQualificationYear" class="form-label">Year of Passing</label>
+                                            <input type="number" class="form-control" id="otherQualificationYear" name="otherQualificationYear" placeholder="Year">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Mode</label>
+                                            <div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="modeOther" id="regularOther" value="Regular">
+                                                    <label class="form-check-label" for="regularOther">Regular</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="modeOther" id="privateOther" value="Private">
+                                                    <label class="form-check-label" for="privateOther">Private</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label for="remarksOther" class="form-label">Remarks</label>
+                                            <textarea class="form-control" id="remarksOther" name="remarksOther" rows="2" placeholder="Any additional information about your qualification"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 8: Attachments -->
+                            <div class="form-step" id="step8">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-paperclip me-2"></i>Attachments Upload</h5>
+                                    <div class="alert alert-info mb-4">
+                                        <h6 class="mb-2"><i class="fas fa-info-circle me-2"></i>Document Requirements</h6>
+                                        <p class="small mb-0">Please upload clear, legible scans of all documents. Maximum file size: 2MB per document. Accepted formats: PDF or JPG.</p>
+                                    </div>
+                                    <p class="mb-3">Please upload the following required documents:</p>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="hsceFile" class="form-label required-field">HSCE (10+2) Certificate</label>
+                                            <input type="file" class="form-control" id="hsceFile" name="hsceFile" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="migrationFile" class="form-label required-field">Migration Certificate</label>
+                                            <input type="file" class="form-control" id="migrationFile" name="migrationFile" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="transferFile" class="form-label required-field">Transfer Certificate</label>
+                                            <input type="file" class="form-control" id="transferFile" name="transferFile" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="stCertificateFile" class="form-label required-field">ST Certificate</label>
+                                            <input type="file" class="form-control" id="stCertificateFile" name="stCertificateFile" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="prcFile" class="form-label required-field">PRC Certificate</label>
+                                            <input type="file" class="form-control" id="prcFile" name="prcFile" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="birthFile" class="form-label required-field">Birth Certificate</label>
+                                            <input type="file" class="form-control" id="birthFile" name="birthFile" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="gapCertificateFile" class="form-label">Year Gap Certificate (if any)</label>
+                                            <input type="file" class="form-control" id="gapCertificateFile" name="gapCertificateFile">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="aadhaarFile" class="form-label required-field">Aadhaar Card with linked number</label>
+                                            <input type="file" class="form-control" id="aadhaarFile" name="aadhaarFile" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="medicalFile" class="form-label required-field">Medical Fitness Certificate with report</label>
+                                            <input type="file" class="form-control" id="medicalFile" name="medicalFile" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="photoFile" class="form-label required-field">Recent Passport Size Photograph</label>
+                                            <input type="file" class="form-control" id="photoFile" name="photoFile" required>
+                                            <small class="text-muted">Upload 1 photograph. You need to bring 6 copies physically</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 9: Declaration -->
+                            <div class="form-step" id="step9">
+                                <div class="form-section">
+                                    <h5><i class="fas fa-file-signature me-2"></i>Declarations</h5>
+                                    
+                                    <!-- Parent/Guardian Declaration -->
+                                    <div class="mb-4">
+                                        <h6 class="text-primary mb-3">Undertaking by Father/Mother/Guardian</h6>
+                                        <p class="mb-3">I hereby declare that the information provided in this application is true and correct to the best of my knowledge. I understand that providing false information may result in cancellation of admission at any stage. I undertake to abide by all the rules and regulations of the institute.</p>
+                                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="parentName" class="form-label required-field">Name</label>
+                                                <input type="text" class="form-control" id="parentName" name="parentName" placeholder="Enter full name" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="parentAddress" class="form-label required-field">Address</label>
+                                                <input type="text" class="form-control" id="parentAddress" name="parentAddress" placeholder="Enter address" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="policeStation" class="form-label required-field">Police Station</label>
+                                                <input type="text" class="form-control" id="policeStation" name="policeStation" placeholder="Enter police station" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="guardianDeclarationDate" class="form-label required-field">Date</label>
+                                                <input type="date" class="form-control" id="guardianDeclarationDate" name="guardianDeclarationDate" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="guardianSignatureConsent" name="guardianSignatureConsent" required>
+                                                    <label class="form-check-label required-field" for="guardianSignatureConsent">
+                                                        I hereby consent and agree to the above declaration as the parent/guardian of the applicant
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="guardianSignatureFile" class="form-label required-field">Upload Signature of Father/Mother/Guardian</label>
+                                                <input type="file" class="form-control" id="guardianSignatureFile" name="guardianSignatureFile" required>
+                                                <small class="text-muted">Upload signature in JPG/PNG format (max 1MB)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Witness Details -->
+                                    <div class="mb-4">
+                                        <h6 class="text-primary mb-3">Witness Details</h6>
+                                        <div class="row mb-3">
+                                            <div class="col-md-4">
+                                                <label for="witness1Name" class="form-label required-field">Witness 1 Name</label>
+                                                <input type="text" class="form-control" id="witness1Name" name="witness1Name" placeholder="Enter witness name" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="witness1FatherName" class="form-label required-field">Witness 1 Father's Name</label>
+                                                <input type="text" class="form-control" id="witness1FatherName" name="witness1FatherName" placeholder="Enter father's name" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="witness1Address" class="form-label required-field">Witness 1 Address</label>
+                                                <input type="text" class="form-control" id="witness1Address" name="witness1Address" placeholder="Enter witness address" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="witness1SignatureFile" class="form-label required-field">Upload Signature of Witness 1</label>
+                                                <input type="file" class="form-control" id="witness1SignatureFile" name="witness1SignatureFile" required>
+                                                <small class="text-muted">Upload signature in JPG/PNG format (max 1MB)</small>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-md-4">
+                                                <label for="witness2Name" class="form-label required-field">Witness 2 Name</label>
+                                                <input type="text" class="form-control" id="witness2Name" name="witness2Name" placeholder="Enter witness name" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="witness2FatherName" class="form-label required-field">Witness 2 Father's Name</label>
+                                                <input type="text" class="form-control" id="witness2FatherName" name="witness2FatherName" placeholder="Enter father's name" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="witness2Address" class="form-label required-field">Witness 2 Address</label>
+                                                <input type="text" class="form-control" id="witness2Address" name="witness2Address" placeholder="Enter witness address" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="witness2SignatureFile" class="form-label required-field">Upload Signature of Witness 2</label>
+                                                <input type="file" class="form-control" id="witness2SignatureFile" name="witness2SignatureFile" required>
+                                                <small class="text-muted">Upload signature in JPG/PNG format (max 1MB)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Candidate's Declaration -->
+                                    <div class="form-section">
+                                        <h5><i class="fas fa-signature me-2"></i>Candidate's Declaration</h5>
+                                        <p class="mb-3">I hereby declare that:</p>
+                                        <ol>
+                                            <li>All the information provided in this application is true and correct to the best of my knowledge.</li>
+                                            <li>I will abide by all the rules and regulations of the institute.</li>
+                                            <li>I am aware that providing false information may result in cancellation of my admission at any stage.</li>
+                                            <li>I have not been debarred from any academic institution.</li>
+                                        </ol>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="candidateDeclarationDate" class="form-label required-field">Date</label>
+                                                <input type="date" class="form-control" id="candidateDeclarationDate" name="candidateDeclarationDate" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="candidateDeclarationPlace" class="form-label required-field">Place</label>
+                                                <input type="text" class="form-control" id="candidateDeclarationPlace" name="candidateDeclarationPlace" placeholder="Enter place" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="candidateSignatureConsent" name="candidateSignatureConsent" required>
+                                                    <label class="form-check-label required-field" for="candidateSignatureConsent">
+                                                        I hereby consent and agree to the above declaration as the applicant
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="candidateSignatureFile" class="form-label required-field">Upload Signature of Applicant</label>
+                                                <input type="file" class="form-control" id="candidateSignatureFile" name="candidateSignatureFile" required>
+                                                <small class="text-muted">Upload signature in JPG/PNG format (max 1MB)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Form Navigation -->
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-outline-primary btn-prev">
+                                    <i class="fas fa-arrow-left me-2"></i>Previous
+                                </button>
+                                <button type="button" class="btn btn-primary btn-next">
+                                    Next<i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                                <button type="submit" class="btn btn-success btn-submit" style="display: none;">
+                                    Submit Application<i class="fas fa-check ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Form End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="../about.html">About Us</a>
+                    <a class="btn btn-link" href="../contact.html">Contact Us</a>
+                    <a class="btn btn-link" href="../courses.html">Our Courses</a>
+                    <a class="btn btn-link" href="../admission.html">Admission</a>
+                    <a class="btn btn-link" href="../facilities.html">Facilities</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>G-Extension, Near Model English School, Itanagar, Arunachal Pradesh</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 9862245330, +91 9208922995</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>regionalinstituteofnursing@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-1.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="../img/course-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <p>Subscribe to our newsletter for updates</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">Regional Institute of Nursing</a>, All Right Reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="../index.html">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FQAs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/wow/wow.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+    
+    <!-- Form validation script -->
+    <script>
+        // Step form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle "Same as Permanent Address" checkbox
+            document.getElementById('sameAsPermAddress').addEventListener('change', function() {
+                const permanentAddress = document.getElementById('permanentAddress').value;
+                const presentAddressField = document.getElementById('presentAddress');
+                
+                if (this.checked) {
+                    presentAddressField.value = permanentAddress;
+                    presentAddressField.setAttribute('readonly', true);
+                } else {
+                    presentAddressField.removeAttribute('readonly');
+                }
+            });
+            
+            const form = document.getElementById('admissionForm');
+            const steps = document.querySelectorAll('.form-step');
+            const navLinks = document.querySelectorAll('.portal-nav .nav-link');
+            const btnNext = document.querySelector('.btn-next');
+            const btnPrev = document.querySelector('.btn-prev');
+            const btnSubmit = document.querySelector('.btn-submit');
+            let currentStep = 0;
+            
+            // Initialize
+            function showStep(stepNumber) {
+                // Hide all steps
+                steps.forEach(step => step.classList.remove('active'));
+                
+                // Show current step
+                steps[stepNumber].classList.add('active');
+                
+                // Update sidebar navigation
+                navLinks.forEach(link => link.classList.remove('active'));
+                navLinks[stepNumber].classList.add('active');
+                
+                // Update buttons
+                if (stepNumber === 0) {
+                    btnPrev.style.display = 'none';
+                } else {
+                    btnPrev.style.display = 'block';
+                }
+                
+                if (stepNumber === steps.length - 1) {
+                    btnNext.style.display = 'none';
+                    btnSubmit.style.display = 'block';
+                } else {
+                    btnNext.style.display = 'block';
+                    btnSubmit.style.display = 'none';
+                }
+                
+                // Scroll to top of form
+                window.scrollTo({
+                    top: form.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Basic validation for a step
+            function validateStep(stepNumber) {
+                const currentStepElement = steps[stepNumber];
+                const requiredFields = currentStepElement.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    // For radio buttons, check if any in the group is checked
+                    if (field.type === 'radio') {
+                        const name = field.name;
+                        const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
+                        if (!checked) {
+                            isValid = false;
+                            // Find the label for this radio group
+                            const label = currentStepElement.querySelector(`label[for="${field.id}"]`).closest('.col-md-12');
+                            label.classList.add('text-danger');
+                        }
+                    } else if (!field.value.trim()) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            // Next button click
+            btnNext.addEventListener('click', function() {
+                if (validateStep(currentStep)) {
+                    // Save current step data and wait for response before proceeding
+                    saveFormStepAndProceed(currentStep);
+                } else {
+                    alert('Please fill in all required fields in this step before proceeding.');
+                }
+            });
+            
+            // Function to save form data and proceed to next step only on success
+            function saveFormStepAndProceed(stepNumber) {
+                // Show saving indicator
+                showSavingIndicator();
+                
+                // Get form data
+                const formData = getFormData(stepNumber);
+                
+                // Create form data for AJAX request
+                const requestData = new FormData();
+                requestData.append('step', stepNumber + 1); // +1 because steps are 0-indexed in JS but 1-indexed in PHP
+                requestData.append('data', JSON.stringify(formData));
+                
+                // Send AJAX request
+                fetch('save_form_step.php', {
+                    method: 'POST',
+                    body: requestData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showSavedIndicator(data.message);
+                        // Only proceed to next step if save was successful
+                        currentStep++;
+                        showStep(currentStep);
+                    } else {
+                        showErrorIndicator(data.message);
+                        // Don't proceed if there's an error
+                        console.error('Error saving data:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Network error:', error);
+                    showErrorIndicator('Network error. Please try again.');
+                });
+            }
+            
+            // Function to save form step data (without automatic progression)
+            function saveFormStep(stepNumber) {
+                // Show saving indicator
+                showSavingIndicator();
+                
+                // Get form data
+                const formData = getFormData(stepNumber);
+                
+                // Create form data for AJAX request
+                const requestData = new FormData();
+                requestData.append('step', stepNumber + 1); // +1 because steps are 0-indexed in JS but 1-indexed in PHP
+                requestData.append('data', JSON.stringify(formData));
+                
+                // Send AJAX request
+                fetch('save_form_step.php', {
+                    method: 'POST',
+                    body: requestData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showSavedIndicator(data.message);
+                    } else {
+                        showErrorIndicator(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorIndicator('Network error. Please try again.');
+                });
+            }
+            
+            // Previous button click
+            btnPrev.addEventListener('click', function() {
+                currentStep--;
+                showStep(currentStep);
+            });
+            
+            // Sidebar navigation clicks
+            navLinks.forEach((link, index) => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Allow going back to previous steps or to current step + 1
+                    if (index <= currentStep + 1) {
+                        if (index > currentStep && !validateStep(currentStep)) {
+                            alert('Please fill in all required fields in the current step before proceeding.');
+                            return;
+                        }
+                        currentStep = index;
+                        showStep(currentStep);
+                    } else {
+                        alert('Please complete the previous steps in order.');
+                    }
+                });
+            });
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate all steps
+                let isFormValid = true;
+                for (let i = 0; i < steps.length; i++) {
+                    if (!validateStep(i)) {
+                        isFormValid = false;
+                        currentStep = i;
+                        showStep(i);
+                        alert(`Please fill in all required fields in Step ${i+1}.`);
+                        break;
+                    }
+                }
+                
+                if (isFormValid) {
+                    // Save final step
+                    saveFormStep(currentStep);
+                    
+                    // Show processing message
+                    showSavingIndicator('Processing submission...');
+                    
+                    // Submit declaration to complete application
+                    setTimeout(() => {
+                        // Redirect to dashboard after success
+                        window.location.href = 'dashboard.php?submission=success';
+                    }, 2000);
+                }
+            });
+            
+            // Auto-calculate percentage for 10th
+            document.getElementById('marksObtained10th').addEventListener('input', calculatePercentage10th);
+            document.getElementById('totalMarks10th').addEventListener('input', calculatePercentage10th);
+            
+            function calculatePercentage10th() {
+                const totalMarks = parseFloat(document.getElementById('totalMarks10th').value) || 0;
+                const marksObtained = parseFloat(document.getElementById('marksObtained10th').value) || 0;
+                
+                if (totalMarks > 0) {
+                    const percentage = (marksObtained / totalMarks) * 100;
+                    document.getElementById('percentage10th').value = percentage.toFixed(2);
+                }
+            }
+            
+            // Auto-calculate percentage for 12th
+            document.getElementById('marksObtained12th').addEventListener('input', calculatePercentage12th);
+            document.getElementById('totalMarks12th').addEventListener('input', calculatePercentage12th);
+            
+            function calculatePercentage12th() {
+                const totalMarks = parseFloat(document.getElementById('totalMarks12th').value) || 0;
+                const marksObtained = parseFloat(document.getElementById('marksObtained12th').value) || 0;
+                
+                if (totalMarks > 0) {
+                    const percentage = (marksObtained / totalMarks) * 100;
+                    document.getElementById('percentage12th').value = percentage.toFixed(2);
+                }
+            }
+            
+            // Auto-calculate percentage for other qualification
+            const otherMarksObtained = document.getElementById('marksObtainedOther');
+            const otherTotalMarks = document.getElementById('totalMarksOther');
+            
+            if (otherMarksObtained && otherTotalMarks) {
+                otherMarksObtained.addEventListener('input', calculatePercentageOther);
+                otherTotalMarks.addEventListener('input', calculatePercentageOther);
+            }
+            
+            function calculatePercentageOther() {
+                const totalMarks = parseFloat(document.getElementById('totalMarksOther').value) || 0;
+                const marksObtained = parseFloat(document.getElementById('marksObtainedOther').value) || 0;
+                
+                if (totalMarks > 0) {
+                    const percentage = (marksObtained / totalMarks) * 100;
+                    document.getElementById('percentageOther').value = percentage.toFixed(2);
+                }
+            }
+            
+            // Calculate subject-wise percentages for 12th
+            const subjectTotals = document.querySelectorAll('.subject-total-12');
+            const subjectObtained = document.querySelectorAll('.subject-obtained-12');
+            
+            subjectTotals.forEach((total, index) => {
+                total.addEventListener('input', function() {
+                    calculateSubjectPercentage(index);
+                });
+            });
+            
+            subjectObtained.forEach((obtained, index) => {
+                obtained.addEventListener('input', function() {
+                    calculateSubjectPercentage(index);
+                });
+            });
+            
+            function calculateSubjectPercentage(index) {
+                const total = parseFloat(subjectTotals[index].value) || 0;
+                const obtained = parseFloat(subjectObtained[index].value) || 0;
+                const percentageField = document.querySelectorAll('.subject-percentage-12')[index];
+                
+                if (total > 0) {
+                    const percentage = (obtained / total) * 100;
+                    percentageField.value = percentage.toFixed(2);
+                } else {
+                    percentageField.value = '';
+                }
+            }
+            
+            // Initialize the form
+            showStep(currentStep);
+            
+            // Same as permanent address checkbox
+            document.getElementById('sameAsPermAddress').addEventListener('change', function() {
+                if (this.checked) {
+                    document.getElementById('presentAddress').value = document.getElementById('permanentAddress').value;
+                }
+            });
+            
+            // AJAX Form Saving Functionality
+            
+            // Show saving indicator function
+            function showSavingIndicator(message) {
+                // Create save status element if it doesn't exist
+                let saveStatus = document.querySelector('.save-status');
+                if (!saveStatus) {
+                    saveStatus = document.createElement('div');
+                    saveStatus.className = 'save-status';
+                    form.parentNode.insertBefore(saveStatus, form.nextSibling);
+                }
+                
+                saveStatus.className = 'save-status saving';
+                saveStatus.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>' + (message || 'Saving...');
+            }
+            
+            // Show saved indicator function
+            function showSavedIndicator(message) {
+                let saveStatus = document.querySelector('.save-status');
+                if (!saveStatus) {
+                    saveStatus = document.createElement('div');
+                    saveStatus.className = 'save-status';
+                    form.parentNode.insertBefore(saveStatus, form.nextSibling);
+                }
+                
+                saveStatus.className = 'save-status saved';
+                saveStatus.innerHTML = '<i class="fas fa-check-circle me-2"></i>' + (message || 'Saved successfully');
+                
+                // Hide indicator after 3 seconds
+                setTimeout(() => {
+                    saveStatus.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Show error indicator function
+            function showErrorIndicator(message) {
+                let saveStatus = document.querySelector('.save-status');
+                if (!saveStatus) {
+                    saveStatus = document.createElement('div');
+                    saveStatus.className = 'save-status';
+                    form.parentNode.insertBefore(saveStatus, form.nextSibling);
+                }
+                
+                saveStatus.className = 'save-status error';
+                saveStatus.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>' + (message || 'Error saving data');
+                
+                // Hide indicator after 5 seconds
+                setTimeout(() => {
+                    saveStatus.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Get form data as object
+            function getFormData(stepNumber) {
+                const currentStepElement = steps[stepNumber];
+                const formData = {};
+                
+                // Get all inputs, selects, and textareas in the current step
+                const inputs = currentStepElement.querySelectorAll('input, select, textarea');
+                
+                inputs.forEach(input => {
+                    // Skip submit buttons
+                    if (input.type === 'submit') return;
+                    
+                    // Handle radio buttons
+                    if (input.type === 'radio') {
+                        if (input.checked) {
+                            formData[input.name] = input.value;
+                        }
+                    }
+                    // Handle checkboxes
+                    else if (input.type === 'checkbox') {
+                        formData[input.name] = input.checked ? 'yes' : 'no';
+                    }
+                    // Handle other input types
+                    else {
+                        // For all other inputs, use both ID and name to improve compatibility
+                        formData[input.id] = input.value;
+                        
+                        // Also include the name attribute if it differs from the id
+                        if (input.name && input.name !== input.id) {
+                            formData[input.name] = input.value;
+                        }
+                    }
+                });
+                
+                // Debug log
+                console.log('Form data for step ' + (stepNumber + 1) + ':', formData);
+                
+                return formData;
+            }
+            
+            // Load existing data if available
+            if (typeof window.formData !== 'undefined' && window.applicationData !== 'undefined') {
+                // Populate form fields with existing data
+                populateFormFields();
+                
+                // Update visual indicators
+                updateCompletionStatus();
+            }
+            
+            // Populate form fields function
+            function populateFormFields() {
+                const formData = window.formData;
+                
+                if (!formData) return;
+                
+                // Basic Information
+                if (formData.basic) {
+                    document.getElementById('dob').value = formData.basic.dob;
+                    const genderValue = formData.basic.gender;
+                    if (genderValue === 'male') document.getElementById('male').checked = true;
+                    if (genderValue === 'female') document.getElementById('female').checked = true;
+                    if (genderValue === 'other') document.getElementById('other').checked = true;
+                }
+                
+                // Parent/Guardian Details
+                if (formData.parents) {
+                    if (formData.parents.father) {
+                        document.getElementById('fatherName').value = formData.parents.father.name;
+                        document.getElementById('fatherOccupation').value = formData.parents.father.occupation;
+                        document.getElementById('fatherMobile').value = formData.parents.father.phone;
+                        document.getElementById('fatherEmail').value = formData.parents.father.email;
+                    }
+                    
+                    if (formData.parents.mother) {
+                        document.getElementById('motherName').value = formData.parents.mother.name;
+                        document.getElementById('motherOccupation').value = formData.parents.mother.occupation;
+                        document.getElementById('motherMobile').value = formData.parents.mother.phone;
+                        document.getElementById('motherEmail').value = formData.parents.mother.email;
+                    }
+                    
+                    if (formData.parents.guardian) {
+                        document.getElementById('guardianName').value = formData.parents.guardian.name;
+                        document.getElementById('guardianOccupation').value = formData.parents.guardian.occupation;
+                        document.getElementById('guardianMobile').value = formData.parents.guardian.phone;
+                        document.getElementById('guardianEmail').value = formData.parents.guardian.email;
+                    }
+                }
+                
+                // Address Details
+                if (formData.addresses) {
+                    if (formData.addresses.permanent) {
+                        document.getElementById('permanentAddress').value = formData.addresses.permanent;
+                    }
+                    
+                    if (formData.addresses.present) {
+                        document.getElementById('presentAddress').value = formData.addresses.present;
+                    }
+                }
+                
+                // Personal Details
+                if (formData.personal) {
+                    document.getElementById('nationality').value = formData.personal.nationality;
+                    document.getElementById('religion').value = formData.personal.religion;
+                    document.getElementById('caste').value = formData.personal.category;
+                    
+                    const maritalStatusSelect = document.getElementById('maritalStatus');
+                    for (let i = 0; i < maritalStatusSelect.options.length; i++) {
+                        if (maritalStatusSelect.options[i].value.toLowerCase() === formData.personal.marital_status) {
+                            maritalStatusSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+                
+                // Education
+                if (formData.education) {
+                    // 10th details
+                    if (formData.education['10th']) {
+                        const edu10 = formData.education['10th'];
+                        document.getElementById('schoolName10th').value = edu10.school_college;
+                        document.getElementById('board10th').value = edu10.board_university;
+                        document.getElementById('percentage10th').value = edu10.percentage;
+                        document.getElementById('yearOfPassing10th').value = edu10.year_of_passing;
+                    }
+                    
+                    // 12th details
+                    if (formData.education['12th']) {
+                        const edu12 = formData.education['12th'];
+                        document.getElementById('schoolName12th').value = edu12.school_college;
+                        document.getElementById('board12th').value = edu12.board_university;
+                        document.getElementById('subjects12th').value = edu12.subjects;
+                        document.getElementById('percentage12th').value = edu12.percentage;
+                        document.getElementById('yearOfPassing12th').value = edu12.year_of_passing;
+                    }
+                    
+                    // Other qualifications
+                    if (formData.education.other) {
+                        const eduOther = formData.education.other;
+                        const otherSchoolField = document.getElementById('schoolNameOther');
+                        const otherBoardField = document.getElementById('boardOther');
+                        const otherSubjectsField = document.getElementById('subjectsOther');
+                        const otherPercentageField = document.getElementById('percentageOther');
+                        const otherYearField = document.getElementById('yearOfPassingOther');
+                        
+                        if (otherSchoolField) otherSchoolField.value = eduOther.school_college;
+                        if (otherBoardField) otherBoardField.value = eduOther.board_university;
+                        if (otherSubjectsField) otherSubjectsField.value = eduOther.subjects;
+                        if (otherPercentageField) otherPercentageField.value = eduOther.percentage;
+                        if (otherYearField) otherYearField.value = eduOther.year_of_passing;
+                    }
+                }
+                
+                // Documents - would load document previews here
+                
+                // Declaration
+                if (formData.declaration) {
+                    const placeField = document.getElementById('declarationPlace');
+                    if (placeField) {
+                        placeField.value = formData.declaration.place;
+                    }
+                }
+            }
+            
+            // Update visual completion status
+            function updateCompletionStatus() {
+                if (!window.applicationData || !window.applicationData.sections) return;
+                
+                const sections = window.applicationData.sections;
+                
+                // Update sidebar navigation to indicate completed sections
+                for (const [sectionId, isCompleted] of Object.entries(sections)) {
+                    if (isCompleted) {
+                        const sectionLink = document.querySelector(`.portal-nav .nav-link[data-step="${sectionId - 1}"]`);
+                        if (sectionLink) {
+                            sectionLink.innerHTML += ' <i class="fas fa-check-circle text-success"></i>';
+                        }
+                    }
+                }
+                
+                // Update step indicator
+                const appStatus = document.createElement('div');
+                appStatus.className = 'alert alert-info mt-3';
+                
+                if (window.applicationData.progress > 0) {
+                    appStatus.innerHTML = `
+                        <h6><i class="fas fa-info-circle me-2"></i>Application Status</h6>
+                        <p class="mb-1">Application ID: <strong>${window.applicationData.application_id}</strong></p>
+                        <p class="mb-1">Progress: <strong>${window.applicationData.progress}%</strong></p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: ${window.applicationData.progress}%" 
+                                aria-valuenow="${window.applicationData.progress}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="mb-0 mt-2">Status: <strong class="text-capitalize">${window.applicationData.status.replace(/_/g, ' ')}</strong></p>
+                    `;
+                    
+                    // Add before the form
+                    const formContainer = document.querySelector('.portal-container');
+                    if (formContainer) {
+                        formContainer.insertBefore(appStatus, formContainer.firstChild);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

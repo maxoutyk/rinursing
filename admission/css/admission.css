@@ -1,0 +1,471 @@
+/* General form styling */
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: var(--primary);
+}
+
+.form-floating > .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(6, 187, 204, 0.25);
+}
+
+/* Portal Specific Styling */
+.portal-header {
+    background-color: var(--primary);
+    padding: 15px 0;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.portal-header h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.portal-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.portal-sidebar {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.portal-nav .nav-link {
+    color: #555;
+    padding: 0.5rem 0;
+    border-left: 3px solid transparent;
+}
+
+.portal-nav .nav-link:hover {
+    color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.05);
+    border-left-color: #0d6efd;
+}
+
+.portal-nav .nav-link.active {
+    color: #0d6efd;
+    font-weight: 500;
+    border-left-color: #0d6efd;
+}
+
+.portal-nav .nav-link i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Password strength indicator */
+.password-strength {
+    margin-top: 10px;
+}
+
+.password-strength .progress {
+    height: 8px;
+    margin-bottom: 8px;
+}
+
+.password-strength .progress-bar.very-weak {
+    background-color: #dc3545;
+    width: 20%;
+}
+
+.password-strength .progress-bar.weak {
+    background-color: #ffc107;
+    width: 40%;
+}
+
+.password-strength .progress-bar.medium {
+    background-color: #fd7e14;
+    width: 60%;
+}
+
+.password-strength .progress-bar.strong {
+    background-color: #28a745;
+    width: 80%;
+}
+
+.password-strength .progress-bar.very-strong {
+    background-color: #20c997;
+    width: 100%;
+}
+
+/* Form validation styling */
+.invalid-feedback {
+    display: block;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+    color: #dc3545;
+}
+
+/* Alert styles */
+#registration-alerts .alert,
+#login-alerts .alert {
+    margin-bottom: 1.5rem;
+}
+
+/* Form step navigator */
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+    padding: 0 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ddd;
+    color: #333;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.step.active .step-number {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.step.completed .step-number {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.step-title {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.step.active .step-title {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.step.completed .step-title {
+    color: #28a745;
+}
+
+.step-bar {
+    position: absolute;
+    top: 15px;
+    left: calc(50% + 15px);
+    right: calc(50% - 15px);
+    height: 2px;
+    background-color: #ddd;
+}
+
+.step:last-child .step-bar {
+    display: none;
+}
+
+.step.completed .step-bar {
+    background-color: #28a745;
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.btn-prev, .btn-next {
+    min-width: 120px;
+}
+
+/* Save progress indicator */
+.save-status {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.save-status.saving {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.save-status.saved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.save-status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Document upload preview */
+.upload-preview {
+    position: relative;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.upload-preview img {
+    max-width: 100%;
+    display: block;
+}
+
+.upload-preview .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(220, 53, 69, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Wizard progress save indicator */
+.auto-save-indicator {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.auto-save-indicator .spinner-border {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .step-title {
+        font-size: 12px;
+    }
+    
+    .step-number {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .btn-prev, .btn-next {
+        min-width: 100px;
+    }
+    
+    .portal-header h2 {
+        font-size: 20px;
+    }
+}
+
+/* Form section styling */
+.form-section {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h5 {
+    color: var(--primary);
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.required-field::after {
+    content: "*";
+    color: #dc3545;
+    margin-left: 4px;
+}
+
+/* Two-factor authentication styles */
+#two-factor-status {
+    display: none;
+}
+
+#two-factor-input {
+    display: none;
+}
+
+/* Dashboard cards */
+.dashboard-card {
+    transition: all 0.3s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+/* Application status indicators */
+.application-status {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #495057;
+}
+
+.status-complete {
+    color: #198754;
+}
+
+.status-pending, .status-in-progress {
+    color: #fd7e14;
+}
+
+.status-incomplete {
+    color: #dc3545;
+}
+
+.status-approved {
+    color: #28a745;
+}
+
+.status-rejected {
+    color: #dc3545;
+}
+
+/* Application timeline */
+.application-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.application-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 9px;
+    width: 2px;
+    background-color: #dee2e6;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -30px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 2px solid #dee2e6;
+    z-index: 1;
+}
+
+.timeline-item.complete .timeline-marker {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.timeline-item.current .timeline-marker {
+    background-color: #fd7e14;
+    border-color: #fd7e14;
+}
+
+.timeline-content {
+    padding-left: 10px;
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: #212529;
+}
+
+.timeline-description {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.timeline-item.complete .timeline-title {
+    color: #198754;
+}
+
+.timeline-item.current .timeline-title {
+    color: #fd7e14;
+}
+
+.portal-container {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.notification-unread {
+    border-left: 3px solid #0d6efd !important;
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.required-field::after {
+    content: "*";
+    color: #dc3545;
+    margin-left: 4px;
+} 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} rinursing\.in [NC]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://rinursing.in/$1 [R,L]
+# Redirect HTML files to PHP versions
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^admission/login\.html$ admission/login.php [L,R=301]
+    RewriteRule ^admission/register\.html$ admission/register.php [L,R=301]
+    RewriteRule ^admission/verify-login\.html$ admission/verify-login.php [L,R=301]
+    RewriteRule ^admission/forgot-password\.html$ admission/forgot-password.php [L,R=301]
+    RewriteRule ^admission/dashboard\.html$ admission/dashboard.php [L,R=301]
+</IfModule>
+
