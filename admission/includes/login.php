@@ -90,6 +90,71 @@ try {
             exit;
         }
         
+        // Handle resend verification email request
+        if (isset($_POST['resendVerification']) && $_POST['resendVerification'] === 'true' && isset($_POST['email'])) {
+            $email = trim($_POST['email']);
+            
+            try {
+                // Find user by email
+                $query = "SELECT id, first_name, last_name, email, status, verification_token FROM users WHERE email = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                
+                if ($result->num_rows === 1) {
+                    $user = $result->fetch_assoc();
+                    
+                    // Check if user is unverified
+                    if ($user['status'] === 'unverified') {
+                        // Generate new verification token if needed
+                        if (empty($user['verification_token'])) {
+                            $verificationToken = bin2hex(random_bytes(32));
+                            
+                            // Update verification token
+                            $updateQuery = "UPDATE users SET verification_token = ? WHERE id = ?";
+                            $updateStmt = $conn->prepare($updateQuery);
+                            $updateStmt->bind_param("si", $verificationToken, $user['id']);
+                            $updateStmt->execute();
+                            $updateStmt->close();
+                        } else {
+                            $verificationToken = $user['verification_token'];
+                        }
+                        
+                        // Send verification email
+                        $emailResult = sendVerificationEmail($user['email'], $user['first_name'], $verificationToken);
+                        
+                        if ($emailResult['success']) {
+                            $response['success'] = true;
+                            $response['message'] = 'Verification email has been resent. Please check your inbox.';
+                            error_log("Verification email resent to: {$user['email']}");
+                        } else {
+                            $response['success'] = false;
+                            $response['message'] = 'Failed to send verification email. Please try again.';
+                            error_log("Failed to resend verification email: {$emailResult['message']}");
+                        }
+                    } else {
+                        $response['success'] = false;
+                        $response['message'] = 'This account is already verified.';
+                        error_log("Resend verification attempt for verified account: $email");
+                    }
+                } else {
+                    $response['success'] = false;
+                    $response['message'] = 'Email address not found.';
+                    error_log("Resend verification attempt for unknown email: $email");
+                }
+                
+                $stmt->close();
+            } catch (Exception $e) {
+                $response['success'] = false;
+                $response['message'] = 'An error occurred. Please try again.';
+                error_log("Error during verification resend: " . $e->getMessage());
+            }
+            
+            echo json_encode($response);
+            exit;
+        }
+        
         // Check if this is a verification code submission
         if (isset($_POST['verificationCode']) && !empty($_POST['verificationCode'])) {
             // Verify 2FA code

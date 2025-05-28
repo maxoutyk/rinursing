@@ -25,41 +25,34 @@
 }
 
 .portal-container {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    margin-bottom: 30px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .portal-sidebar {
-    background-color: #f8f9fa;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .portal-nav .nav-link {
-    color: #555;
-    padding: 0.5rem 0;
-    border-left: 3px solid transparent;
+    color: #495057;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
-.portal-nav .nav-link:hover {
-    color: #0d6efd;
-    background-color: rgba(13, 110, 253, 0.05);
-    border-left-color: #0d6efd;
-}
-
+.portal-nav .nav-link:hover,
 .portal-nav .nav-link.active {
-    color: #0d6efd;
-    font-weight: 500;
-    border-left-color: #0d6efd;
+    background: #06BBCC;
+    color: white;
 }
 
 .portal-nav .nav-link i {
     margin-right: 10px;
-    width: 20px;
-    text-align: center;
 }
 
 /* Password strength indicator */
@@ -289,8 +282,16 @@
         min-width: 100px;
     }
     
+    .portal-header {
+        padding: 15px 0;
+    }
+    
     .portal-header h2 {
         font-size: 20px;
+    }
+    
+    .application-status {
+        font-size: 1.5rem;
     }
 }
 
@@ -341,24 +342,20 @@
 
 /* Application status indicators */
 .application-status {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #495057;
-}
-
-.status-complete {
-    color: #198754;
-}
-
-.status-pending, .status-in-progress {
-    color: #fd7e14;
+    font-size: 2rem;
+    margin: 0;
+    color: #06BBCC;
 }
 
 .status-incomplete {
-    color: #dc3545;
+    color: #ffc107;
 }
 
-.status-approved {
+.status-pending {
+    color: #17a2b8;
+}
+
+.status-submitted {
     color: #28a745;
 }
 
@@ -369,72 +366,56 @@
 /* Application timeline */
 .application-timeline {
     position: relative;
-    padding-left: 30px;
-}
-
-.application-timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 9px;
-    width: 2px;
-    background-color: #dee2e6;
+    padding: 20px 0;
 }
 
 .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
     position: relative;
-    padding-bottom: 1.5rem;
+}
+
+.timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 30px;
+    bottom: -20px;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.timeline-item.completed:not(:last-child)::after {
+    background: #28a745;
 }
 
 .timeline-marker {
-    position: absolute;
-    left: -30px;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background-color: #ffffff;
-    border: 2px solid #dee2e6;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
     z-index: 1;
+    color: #495057;
+    font-weight: bold;
 }
 
-.timeline-item.complete .timeline-marker {
-    background-color: #198754;
-    border-color: #198754;
-}
-
-.timeline-item.current .timeline-marker {
-    background-color: #fd7e14;
-    border-color: #fd7e14;
+.timeline-item.completed .timeline-marker {
+    background: #28a745;
+    color: white;
 }
 
 .timeline-content {
-    padding-left: 10px;
+    flex: 1;
+    padding-top: 3px;
 }
 
-.timeline-date {
-    font-size: 0.8rem;
-    color: #6c757d;
-    margin-bottom: 0.25rem;
-}
-
-.timeline-title {
-    font-weight: 500;
-    margin-bottom: 0.25rem;
-    color: #212529;
-}
-
-.timeline-description {
-    font-size: 0.9rem;
-    color: #6c757d;
-}
-
-.timeline-item.complete .timeline-title {
-    color: #198754;
-}
-
-.timeline-item.current .timeline-title {
-    color: #fd7e14;
+.timeline-content h6 {
+    margin: 0 0 5px;
 }
 
 .portal-container {
@@ -462,6 +443,72 @@
     content: "*";
     color: #dc3545;
     margin-left: 4px;
+}
+
+/* Confirmation page styles */
+.confirmation-container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.confirmation-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-icon.success {
+    color: #28a745;
+}
+
+.confirmation-icon.error {
+    color: #dc3545;
+}
+
+.confirmation-message .alert {
+    border: none;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.confirmation-message .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.confirmation-message .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.confirmation-message ul {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.confirmation-message li {
+    margin-bottom: 0.5rem;
+}
+
+.confirmation-message li:last-child {
+    margin-bottom: 0;
+}
+
+.btn-proceed {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+
+.btn-proceed:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 } 
  
  

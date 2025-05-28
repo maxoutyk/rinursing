@@ -391,6 +391,125 @@ function showAlert(message, type) {
             bsAlert.close();
         }
     }, 5000);
+}
+
+// Dashboard JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Update user name in welcome message and navigation
+    const userName = userData.first_name ? `${userData.first_name} ${userData.last_name}` : 'Student';
+    document.getElementById('welcome-name').textContent = userName;
+    document.getElementById('user-name-display').textContent = userName;
+    
+    // Update last login date
+    const lastLogin = userData.last_login ? new Date(userData.last_login).toLocaleDateString() : 'First Login';
+    document.getElementById('last-login-date').textContent = lastLogin;
+    
+    // Handle application data display
+    updateApplicationDisplay();
+    
+    // Hide spinner
+    document.getElementById('spinner').classList.remove('show');
+});
+
+function updateApplicationDisplay() {
+    const progressElement = document.getElementById('application-progress');
+    const statusElement = document.getElementById('application-status');
+    const applicationIdElement = document.getElementById('application-id');
+    const timelineElement = document.getElementById('form-progress-timeline');
+    const actionButton = document.querySelector('.text-center.mt-4');
+    const welcomeMessage = document.getElementById('welcome-message');
+    
+    if (!applicationData || Object.keys(applicationData).length === 0) {
+        // No application exists - show start application message
+        progressElement.textContent = '0%';
+        statusElement.textContent = 'Not Started';
+        applicationIdElement.textContent = '--';
+        
+        welcomeMessage.textContent = 'Welcome to the admission portal! You have not started your application yet.';
+        
+        // Clear timeline and show start message
+        timelineElement.innerHTML = `
+            <div class="text-center py-4">
+                <p class="mb-3">No application has been started yet. Click the button below to begin your admission process.</p>
+            </div>
+        `;
+        
+        // Update action button
+        actionButton.innerHTML = `
+            <button onclick="initializeApplication()" class="btn btn-primary">
+                <i class="fas fa-plus-circle me-2"></i>Start Application
+            </button>
+        `;
+        return;
+    }
+    
+    // Application exists - show progress
+    progressElement.textContent = `${applicationData.progress}%`;
+    statusElement.textContent = applicationData.status.charAt(0).toUpperCase() + applicationData.status.slice(1);
+    applicationIdElement.textContent = applicationData.application_id;
+    
+    welcomeMessage.textContent = `Your application (ID: ${applicationData.application_id}) is ${applicationData.progress}% complete.`;
+    
+    // Update timeline
+    if (applicationData.sections && applicationData.sections.length > 0) {
+        timelineElement.innerHTML = applicationData.sections.map((section, index) => `
+            <div class="timeline-item ${section.is_completed ? 'completed' : ''}">
+                <div class="timeline-marker">
+                    ${section.is_completed ? '<i class="fas fa-check"></i>' : (index + 1)}
+                </div>
+                <div class="timeline-content">
+                    <h6>${section.section_name}</h6>
+                    <span class="badge ${section.is_completed ? 'bg-success' : 'bg-secondary'}">
+                        ${section.is_completed ? 'Completed' : 'Pending'}
+                    </span>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Update action button text based on status
+    const continueButton = actionButton.querySelector('.btn');
+    if (applicationData.status === 'submitted') {
+        continueButton.innerHTML = '<i class="fas fa-eye me-2"></i>View Application';
+    } else {
+        continueButton.innerHTML = '<i class="fas fa-edit me-2"></i>Continue Application';
+    }
+}
+
+function initializeApplication() {
+    // Show loading state
+    const button = document.querySelector('.text-center.mt-4 .btn');
+    const originalContent = button.innerHTML;
+    button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Initializing...';
+    button.disabled = true;
+    
+    // Call the initialization endpoint
+    fetch('initialize_application.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Redirect to the admission form
+            window.location.href = 'admission-form.php';
+        } else {
+            alert(data.message || 'Error initializing application. Please try again.');
+            // Reset button
+            button.innerHTML = originalContent;
+            button.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+        // Reset button
+        button.innerHTML = originalContent;
+        button.disabled = false;
+    });
 } 
  
  

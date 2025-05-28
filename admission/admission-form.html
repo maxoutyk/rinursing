@@ -106,7 +106,7 @@ require_once 'includes/auth_check.php';
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="login.html" class="nav-item nav-link text-danger">
+                    <a href="includes/logout.php" class="nav-item nav-link text-danger">
                         <i class="fas fa-sign-out-alt me-1"></i>Logout
                     </a>
                 </div>
@@ -675,38 +675,38 @@ require_once 'includes/auth_check.php';
                                         <h6 class="mb-2"><i class="fas fa-info-circle me-2"></i>Document Requirements</h6>
                                         <p class="small mb-0">Please upload clear, legible scans of all documents. Maximum file size: 2MB per document. Accepted formats: PDF or JPG.</p>
                                     </div>
-                                    <p class="mb-3">Please upload the following required documents:</p>
+                                    <p class="mb-3">Please upload the following documents:</p>
                                     
                                     <div class="row mb-3">
                                         <div class="col-md-6">
-                                            <label for="hsceFile" class="form-label required-field">HSCE (10+2) Certificate</label>
-                                            <input type="file" class="form-control" id="hsceFile" name="hsceFile" required>
+                                            <label for="hsceFile" class="form-label">HSCE (10+2) Certificate</label>
+                                            <input type="file" class="form-control" id="hsceFile" name="hsceFile">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="migrationFile" class="form-label required-field">Migration Certificate</label>
-                                            <input type="file" class="form-control" id="migrationFile" name="migrationFile" required>
+                                            <label for="migrationFile" class="form-label">Migration Certificate</label>
+                                            <input type="file" class="form-control" id="migrationFile" name="migrationFile">
                                         </div>
                                     </div>
                                     
                                     <div class="row mb-3">
                                         <div class="col-md-6">
-                                            <label for="transferFile" class="form-label required-field">Transfer Certificate</label>
-                                            <input type="file" class="form-control" id="transferFile" name="transferFile" required>
+                                            <label for="transferFile" class="form-label">Transfer Certificate</label>
+                                            <input type="file" class="form-control" id="transferFile" name="transferFile">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="stCertificateFile" class="form-label required-field">ST Certificate</label>
-                                            <input type="file" class="form-control" id="stCertificateFile" name="stCertificateFile" required>
+                                            <label for="stCertificateFile" class="form-label">ST Certificate</label>
+                                            <input type="file" class="form-control" id="stCertificateFile" name="stCertificateFile">
                                         </div>
                                     </div>
                                     
                                     <div class="row mb-3">
                                         <div class="col-md-6">
-                                            <label for="prcFile" class="form-label required-field">PRC Certificate</label>
-                                            <input type="file" class="form-control" id="prcFile" name="prcFile" required>
+                                            <label for="prcFile" class="form-label">PRC Certificate</label>
+                                            <input type="file" class="form-control" id="prcFile" name="prcFile">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="birthFile" class="form-label required-field">Birth Certificate</label>
-                                            <input type="file" class="form-control" id="birthFile" name="birthFile" required>
+                                            <label for="birthFile" class="form-label">Birth Certificate</label>
+                                            <input type="file" class="form-control" id="birthFile" name="birthFile">
                                         </div>
                                     </div>
                                     
@@ -716,19 +716,19 @@ require_once 'includes/auth_check.php';
                                             <input type="file" class="form-control" id="gapCertificateFile" name="gapCertificateFile">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="aadhaarFile" class="form-label required-field">Aadhaar Card with linked number</label>
-                                            <input type="file" class="form-control" id="aadhaarFile" name="aadhaarFile" required>
+                                            <label for="aadhaarFile" class="form-label">Aadhaar Card with linked number</label>
+                                            <input type="file" class="form-control" id="aadhaarFile" name="aadhaarFile">
                                         </div>
                                     </div>
                                     
                                     <div class="row mb-3">
                                         <div class="col-md-6">
-                                            <label for="medicalFile" class="form-label required-field">Medical Fitness Certificate with report</label>
-                                            <input type="file" class="form-control" id="medicalFile" name="medicalFile" required>
+                                            <label for="medicalFile" class="form-label">Medical Fitness Certificate with report</label>
+                                            <input type="file" class="form-control" id="medicalFile" name="medicalFile">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="photoFile" class="form-label required-field">Recent Passport Size Photograph</label>
-                                            <input type="file" class="form-control" id="photoFile" name="photoFile" required>
+                                            <label for="photoFile" class="form-label">Recent Passport Size Photograph</label>
+                                            <input type="file" class="form-control" id="photoFile" name="photoFile">
                                             <small class="text-muted">Upload 1 photograph. You need to bring 6 copies physically</small>
                                         </div>
                                     </div>
@@ -777,8 +777,8 @@ require_once 'includes/auth_check.php';
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-12">
-                                                <label for="guardianSignatureFile" class="form-label required-field">Upload Signature of Father/Mother/Guardian</label>
-                                                <input type="file" class="form-control" id="guardianSignatureFile" name="guardianSignatureFile" required>
+                                                <label for="guardianSignatureFile" class="form-label">Upload Signature of Father/Mother/Guardian</label>
+                                                <input type="file" class="form-control" id="guardianSignatureFile" name="guardianSignatureFile">
                                                 <small class="text-muted">Upload signature in JPG/PNG format (max 1MB)</small>
                                             </div>
                                         </div>
@@ -803,8 +803,8 @@ require_once 'includes/auth_check.php';
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-12">
-                                                <label for="witness1SignatureFile" class="form-label required-field">Upload Signature of Witness 1</label>
-                                                <input type="file" class="form-control" id="witness1SignatureFile" name="witness1SignatureFile" required>
+                                                <label for="witness1SignatureFile" class="form-label">Upload Signature of Witness 1</label>
+                                                <input type="file" class="form-control" id="witness1SignatureFile" name="witness1SignatureFile">
                                                 <small class="text-muted">Upload signature in JPG/PNG format (max 1MB)</small>
                                             </div>
                                         </div>
@@ -824,8 +824,8 @@ require_once 'includes/auth_check.php';
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-12">
-                                                <label for="witness2SignatureFile" class="form-label required-field">Upload Signature of Witness 2</label>
-                                                <input type="file" class="form-control" id="witness2SignatureFile" name="witness2SignatureFile" required>
+                                                <label for="witness2SignatureFile" class="form-label">Upload Signature of Witness 2</label>
+                                                <input type="file" class="form-control" id="witness2SignatureFile" name="witness2SignatureFile">
                                                 <small class="text-muted">Upload signature in JPG/PNG format (max 1MB)</small>
                                             </div>
                                         </div>
@@ -863,8 +863,8 @@ require_once 'includes/auth_check.php';
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-12">
-                                                <label for="candidateSignatureFile" class="form-label required-field">Upload Signature of Applicant</label>
-                                                <input type="file" class="form-control" id="candidateSignatureFile" name="candidateSignatureFile" required>
+                                                <label for="candidateSignatureFile" class="form-label">Upload Signature of Applicant</label>
+                                                <input type="file" class="form-control" id="candidateSignatureFile" name="candidateSignatureFile">
                                                 <small class="text-muted">Upload signature in JPG/PNG format (max 1MB)</small>
                                             </div>
                                         </div>
@@ -1051,6 +1051,16 @@ require_once 'includes/auth_check.php';
                 let isValid = true;
                 
                 requiredFields.forEach(field => {
+                    // For file inputs, check if there's already an upload preview
+                    if (field.type === 'file') {
+                        const uploadPreview = field.parentNode.querySelector('.upload-preview');
+                        if (uploadPreview) {
+                            // Document already uploaded, skip validation
+                            field.classList.remove('is-invalid');
+                            return;
+                        }
+                    }
+                    
                     // For radio buttons, check if any in the group is checked
                     if (field.type === 'radio') {
                         const name = field.name;
@@ -1128,17 +1138,9 @@ require_once 'includes/auth_check.php';
                 }
                 
                 if (isFormValid) {
-                    // Save final step
-                    saveFormStep(currentStep);
-                    
-                    // Show processing message
-                    showSavingIndicator('Processing submission...');
-                    
-                    // Submit declaration to complete application
-                    setTimeout(() => {
-                        // Redirect to dashboard after success
-                        window.location.href = 'dashboard.php?submission=success';
-                    }, 2000);
+                    // Show final submission modal
+                    const finalSubmissionModal = new bootstrap.Modal(document.getElementById('finalSubmissionModal'));
+                    finalSubmissionModal.show();
                 }
             });
             
@@ -1230,55 +1232,68 @@ require_once 'includes/auth_check.php';
             
             // AJAX Form Saving Functionality
             
-            // Show saving indicator function
+            // Function to show alerts
+            function showAlert(message, type) {
+                // Create alerts container if it doesn't exist
+                let alertsContainer = document.querySelector('.alerts-container');
+                if (!alertsContainer) {
+                    alertsContainer = document.createElement('div');
+                    alertsContainer.className = 'alerts-container';
+                    const formContainer = document.querySelector('.portal-container');
+                    if (formContainer) {
+                        formContainer.insertBefore(alertsContainer, formContainer.firstChild);
+                    }
+                }
+
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+                alertDiv.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                alertsContainer.appendChild(alertDiv);
+
+                // Auto-dismiss success and info alerts after 5 seconds
+                if (type === 'success' || type === 'info') {
+                    setTimeout(() => {
+                        if (alertDiv.parentNode) {
+                            alertDiv.remove();
+                        }
+                    }, 5000);
+                }
+            }
+
+            // Function to show saving indicator
             function showSavingIndicator(message) {
-                // Create save status element if it doesn't exist
-                let saveStatus = document.querySelector('.save-status');
-                if (!saveStatus) {
-                    saveStatus = document.createElement('div');
-                    saveStatus.className = 'save-status';
-                    form.parentNode.insertBefore(saveStatus, form.nextSibling);
-                }
-                
-                saveStatus.className = 'save-status saving';
-                saveStatus.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>' + (message || 'Saving...');
+                showAlert(`<i class="fas fa-spinner fa-spin me-2"></i>${message || 'Saving...'}`, 'info');
             }
-            
-            // Show saved indicator function
+
+            // Function to show saved indicator
             function showSavedIndicator(message) {
-                let saveStatus = document.querySelector('.save-status');
-                if (!saveStatus) {
-                    saveStatus = document.createElement('div');
-                    saveStatus.className = 'save-status';
-                    form.parentNode.insertBefore(saveStatus, form.nextSibling);
-                }
-                
-                saveStatus.className = 'save-status saved';
-                saveStatus.innerHTML = '<i class="fas fa-check-circle me-2"></i>' + (message || 'Saved successfully');
-                
-                // Hide indicator after 3 seconds
-                setTimeout(() => {
-                    saveStatus.style.display = 'none';
-                }, 3000);
+                showAlert(`<i class="fas fa-check-circle me-2"></i>${message || 'Saved successfully'}`, 'success');
             }
-            
-            // Show error indicator function
+
+            // Function to show error indicator
             function showErrorIndicator(message) {
-                let saveStatus = document.querySelector('.save-status');
-                if (!saveStatus) {
-                    saveStatus = document.createElement('div');
-                    saveStatus.className = 'save-status';
-                    form.parentNode.insertBefore(saveStatus, form.nextSibling);
-                }
-                
-                saveStatus.className = 'save-status error';
-                saveStatus.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>' + (message || 'Error saving data');
-                
-                // Hide indicator after 5 seconds
-                setTimeout(() => {
-                    saveStatus.style.display = 'none';
-                }, 5000);
+                showAlert(`<i class="fas fa-exclamation-circle me-2"></i>${message || 'Error saving data'}`, 'danger');
             }
+
+            // Add CSS for alerts container
+            const style = document.createElement('style');
+            style.textContent = `
+                .alerts-container {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 9999;
+                    max-width: 400px;
+                }
+                .alerts-container .alert {
+                    margin-bottom: 10px;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                }
+            `;
+            document.head.appendChild(style);
             
             // Get form data as object
             function getFormData(stepNumber) {
@@ -1572,6 +1587,11 @@ require_once 'includes/auth_check.php';
                                     `;
                                 }
                                 
+                                // Remove the required attribute since document is uploaded
+                                if (input.hasAttribute('required')) {
+                                    input.removeAttribute('required');
+                                }
+                                
                                 // Add remove document event listener
                                 const removeBtn = previewDiv.querySelector('.remove-document');
                                 if (removeBtn) {
@@ -1589,6 +1609,13 @@ require_once 'includes/auth_check.php';
                                             if (data.status === 'success') {
                                                 previewDiv.remove();
                                                 input.value = '';
+                                                
+                                                // Re-add the required attribute if this field was originally required
+                                                // Check if the input's label has the 'required-field' class
+                                                const label = input.parentNode.querySelector('.required-field');
+                                                if (label) {
+                                                    input.setAttribute('required', '');
+                                                }
                                                 
                                                 // Update application progress
                                                 updateApplicationProgress();
@@ -1797,9 +1824,13 @@ require_once 'includes/auth_check.php';
                     if (formData.education.other) {
                         const eduOther = formData.education.other;
                         
+                        // Add console log to debug what data we're receiving
+                        console.log("Other qualification data:", eduOther);
+                        
                         // Set the qualification name
                         const otherQualificationField = document.getElementById('otherQualification');
                         if (otherQualificationField && eduOther.qualification_name) {
+                            console.log("Setting qualification name to:", eduOther.qualification_name);
                             otherQualificationField.value = eduOther.qualification_name;
                         }
                         
@@ -1829,6 +1860,108 @@ require_once 'includes/auth_check.php';
                 }
                 
                 // Documents - would load document previews here
+                if (formData.documents) {
+                    // Loop through all document types
+                    Object.keys(formData.documents).forEach(documentType => {
+                        const docInfo = formData.documents[documentType];
+                        
+                        // Document type in the database matches the input field ID
+                        const input = document.getElementById(documentType);
+                        
+                        if (input) {
+                            // Create preview container
+                            const previewDiv = input.parentNode.querySelector('.upload-preview') || document.createElement('div');
+                            previewDiv.className = 'upload-preview mt-2';
+                            
+                            // Determine if it's an image by checking the file extension or mime_type
+                            const isImage = docInfo.file_path && 
+                                (docInfo.file_path.toLowerCase().endsWith('.jpg') || 
+                                 docInfo.file_path.toLowerCase().endsWith('.jpeg') || 
+                                 docInfo.file_path.toLowerCase().endsWith('.png') ||
+                                 (docInfo.mime_type && docInfo.mime_type.startsWith('image/')));
+                            
+                            if (isImage) {
+                                previewDiv.innerHTML = `
+                                    <div class="text-center">
+                                        <img src="${docInfo.file_path}" alt="Preview" class="img-fluid mb-2" style="max-height: 200px;">
+                                        <div class="text-success"><i class="fas fa-check-circle me-1"></i>Document uploaded</div>
+                                        <button type="button" class="btn btn-sm btn-danger mt-2 remove-document" data-document-type="${documentType}">
+                                            <i class="fas fa-trash me-1"></i>Remove
+                                        </button>
+                                    </div>
+                                `;
+                            } else {
+                                previewDiv.innerHTML = `
+                                    <div class="text-center">
+                                        <div class="p-3 border rounded mb-2">
+                                            <i class="fas fa-file-pdf fa-2x text-danger mb-2"></i>
+                                            <div>${docInfo.file_name}</div>
+                                        </div>
+                                        <div class="text-success"><i class="fas fa-check-circle me-1"></i>Document uploaded</div>
+                                        <button type="button" class="btn btn-sm btn-danger mt-2 remove-document" data-document-type="${documentType}">
+                                            <i class="fas fa-trash me-1"></i>Remove
+                                        </button>
+                                    </div>
+                                `;
+                            }
+                            
+                            // Add to the DOM if not already there
+                            if (!input.parentNode.querySelector('.upload-preview')) {
+                                input.parentNode.appendChild(previewDiv);
+                            }
+                            
+                            // Remove the required attribute since the document is already uploaded
+                            if (input.hasAttribute('required')) {
+                                input.removeAttribute('required');
+                            }
+                            
+                            // Add event listener for the delete button
+                            const removeBtn = previewDiv.querySelector('.remove-document');
+                            if (removeBtn) {
+                                removeBtn.addEventListener('click', function() {
+                                    // Delete document on server
+                                    const deleteData = new FormData();
+                                    deleteData.append('document_type', documentType);
+                                    
+                                    fetch('delete_document.php', {
+                                        method: 'POST',
+                                        body: deleteData
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.status === 'success') {
+                                            previewDiv.remove();
+                                            input.value = '';
+                                            
+                                            // Re-add the required attribute if this field was originally required
+                                            // Check if the input's label has the 'required-field' class
+                                            const label = input.parentNode.querySelector('.required-field');
+                                            if (label) {
+                                                input.setAttribute('required', '');
+                                            }
+                                            
+                                            // Update application progress
+                                            updateApplicationProgress();
+                                        } else {
+                                            console.error('Error:', data.message);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
+                                });
+                            }
+                        } else {
+                            console.warn(`Input element with ID "${documentType}" not found for document preview`);
+                        }
+                    });
+                    
+                    // Mark documents section as complete in the navigation
+                    const documentsLink = document.querySelector('.portal-nav .nav-link[data-step="7"]');
+                    if (documentsLink && !documentsLink.innerHTML.includes('fa-check-circle') && Object.keys(formData.documents).length > 0) {
+                        documentsLink.innerHTML += ' <i class="fas fa-check-circle text-success"></i>';
+                    }
+                }
                 
                 // Declaration
                 if (formData.declaration) {
@@ -1886,6 +2019,112 @@ require_once 'includes/auth_check.php';
                     }
                 }
             }
+        });
+    </script>
+
+    <!-- Add before the closing </body> tag -->
+    <!-- Final Submission Modal -->
+    <div class="modal fade" id="finalSubmissionModal" tabindex="-1" aria-labelledby="finalSubmissionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="finalSubmissionModalLabel">Confirm Final Submission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Important Notice:</strong>
+                    </div>
+                    <p>Please confirm that you want to submit your application. After submission:</p>
+                    <ul>
+                        <li>You will not be able to make any further changes to your application</li>
+                        <li>All uploaded documents will be locked for verification</li>
+                        <li>The admission office will review your application</li>
+                    </ul>
+                    <p class="mb-0">Are you sure you want to proceed with the final submission?</p>
+                    <!-- Add alert container -->
+                    <div id="submissionAlerts" class="mt-3"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" id="confirmFinalSubmission">
+                        <i class="fas fa-check me-2"></i>Yes, Submit Application
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to show alerts
+        function showSubmissionAlert(message, type) {
+            const alertsContainer = document.getElementById('submissionAlerts');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            alertsContainer.appendChild(alertDiv);
+
+            // Auto-dismiss success alerts after 3 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    alertDiv.remove();
+                }, 3000);
+            }
+        }
+
+        // Handle final submission confirmation
+        document.getElementById('confirmFinalSubmission').addEventListener('click', function() {
+            const button = this;
+            const modalBody = document.querySelector('#finalSubmissionModal .modal-body');
+            const loadingSpinner = document.createElement('div');
+            loadingSpinner.className = 'text-center mt-3';
+            loadingSpinner.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
+            
+            // Disable the button and show loading spinner
+            button.disabled = true;
+            modalBody.appendChild(loadingSpinner);
+            
+            // Clear previous alerts
+            document.getElementById('submissionAlerts').innerHTML = '';
+
+            // Get the form data
+            const formData = new FormData(document.getElementById('admissionForm'));
+            formData.append('final_submission', 'true');
+
+            // Submit the form
+            fetch('submit_application.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSubmissionAlert(data.message || 'Application submitted successfully!', 'success');
+                    
+                    // Redirect after a short delay
+                    setTimeout(() => {
+                        window.location.href = data.redirect || 'dashboard.php?submission=success';
+                    }, 2000);
+                } else {
+                    showSubmissionAlert(data.message || 'Error submitting application. Please try again.', 'danger');
+                    button.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showSubmissionAlert('An error occurred. Please try again.', 'danger');
+                button.disabled = false;
+            })
+            .finally(() => {
+                // Remove loading spinner
+                loadingSpinner.remove();
+            });
         });
     </script>
 </body>

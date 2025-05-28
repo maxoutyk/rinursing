@@ -18,6 +18,22 @@ if (!defined('ENVIRONMENT')) {
     define('ENVIRONMENT', 'development');
 }
 
+// Define log file path
+if (!defined('SMTP_LOG_FILE')) {
+    define('SMTP_LOG_FILE', __DIR__ . '/smtp_debug.log');
+}
+
+/**
+ * Custom callback for SMTP debug output
+ * @param string $str Debug message
+ * @param int $level Debug level
+ * @return void
+ */
+function smtpDebugCallback($str, $level) {
+    $timestamp = date('Y-m-d H:i:s');
+    error_log("[$timestamp] $str\n", 3, SMTP_LOG_FILE);
+}
+
 /**
  * Send an email using Office 365 SMTP server
  * 
@@ -38,7 +54,7 @@ function sendEmail($to, $subject, $body, $altBody = '', $attachments = []) {
         $mail->Host       = 'smtp.office365.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'support@incitegravity.com'; // Office 365 email
-        $mail->Password   = 'Init@123##'; // Your actual password
+        $mail->Password   = 'ugugLPxvh7ZlqPN'; // Your actual password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
         
@@ -51,9 +67,10 @@ function sendEmail($to, $subject, $body, $altBody = '', $attachments = []) {
             ]
         ];
         
-        // Enable verbose debug output in development
+        // Enable debug output to log file in development
         if (ENVIRONMENT === 'development') {
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Output debug info to logs
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->Debugoutput = 'smtpDebugCallback';
         }
         
         // Recipients - IMPORTANT: setFrom must match Username for Office 365

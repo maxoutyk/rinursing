@@ -4,6 +4,10 @@ require_once 'direct_access_protection.php';
 
 // Include required authentication check to protect this page
 require_once 'includes/required_auth.php';
+
+// Include database connection
+require_once 'includes/db_connect.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,45 +77,16 @@ require_once 'includes/required_auth.php';
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="../index.html" class="nav-item nav-link">Home</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
-                    <div class="dropdown-menu fade-down m-0">
-                        <a href="../about.html" class="dropdown-item">About Us</a>
-                        <a href="../about.html#Objectives" class="dropdown-item">Objectives</a>
-                        <a href="../about.html#Vision" class="dropdown-item">Vision</a>
-                        <a href="../about.html#Mission" class="dropdown-item">Mission</a>
-                        <a href="../about.html#Features" class="dropdown-item">Programme Features</a>
-                        <a href="../index.html#chairperson" class="dropdown-item">Chairperson</a>
-                        <a href="../index.html#principal" class="dropdown-item">Principal</a>
-                    </div>
-                </div>
+                <a href="../about.html" class="nav-item nav-link">About</a>
                 <a href="../facilities.html" class="nav-item nav-link">Facilities</a>
                 <a href="../courses.html" class="nav-item nav-link">Courses</a>
                 <a href="../admission.html" class="nav-item nav-link active">Admission</a>
                 <a href="../fees.html" class="nav-item nav-link">Fees</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Connect</a>
-                    <div class="dropdown-menu fade-down m-0">
-                        <a href="../news.html" class="dropdown-item">News & Events</a>
-                        <a href="../docs/prospectus.pdf" target="_blank" class="dropdown-item">Prospectus</a>
-                        <a href="../photo-gallery.html" class="dropdown-item">Photo Gallery</a>
-                        <a href="../video-gallery.html" class="dropdown-item">Video Gallery</a>
-                        <a href="#" class="dropdown-item">Downloads</a>
-                    </div>
-                </div>
                 <a href="../contact.html" class="nav-item nav-link">Contact</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <i class="fas fa-user-circle me-1"></i><span id="user-name-display">My Account</span>
-                    </a>
-                    <div class="dropdown-menu fade-down m-0">
-                        <a href="dashboard.php" class="dropdown-item active">Dashboard</a>
-                        <a href="profile.html" class="dropdown-item">Profile</a>
-                        <a href="notifications.html" class="dropdown-item">Notifications</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="includes/logout.php" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
-                    </div>
-                </div>
+                <a href="dashboard.php" class="nav-item nav-link">Dashboard</a>
+                <a href="includes/logout.php" class="nav-item nav-link text-danger">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </a>
             </div>
         </div>
     </nav>
@@ -141,128 +116,168 @@ require_once 'includes/required_auth.php';
                 <!-- Welcome Section -->
                 <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="alert alert-primary">
-                        <h4 class="alert-heading"><i class="fas fa-bell me-2"></i>Welcome, <span id="welcome-name">Student</span>!</h4>
-                        <p class="mb-0" id="welcome-message">Loading application status...</p>
+                        <h4 class="alert-heading"><i class="fas fa-bell me-2"></i>Welcome, <?php echo htmlspecialchars($userData['first_name']); ?>!</h4>
+                        <p class="mb-0">
+                            <?php if($has_application): ?>
+                                <?php if($application_data['status'] === 'submitted'): ?>
+                                    Your application has been submitted successfully and is currently under review.
+                                <?php else: ?>
+                                    You have completed <?php echo $application_data['progress']; ?>% of your application. Please complete all sections to submit your application.
+                                <?php endif; ?>
+                            <?php else: ?>
+                                Welcome to the admission portal! Start your application process by clicking the button below.
+                            <?php endif; ?>
+                        </p>
                     </div>
                 </div>
                 
-                <!-- Main Content and Sidebar -->
-                <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                <!-- Main Content -->
+                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="portal-container">
-                        <h4 class="mb-4"><i class="fas fa-tasks me-2"></i>Application Status</h4>
-                        
-                        <div class="row mb-4">
-                            <div class="col-md-4 text-center">
-                                <div class="p-3 border rounded mb-3">
-                                    <h2 class="application-status status-incomplete" id="application-progress">--%</h2>
-                                    <p class="text-muted mb-0">Application Progress</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <div class="p-3 border rounded mb-3">
-                                    <h2 class="application-status status-pending" id="application-status">--</h2>
-                                    <p class="text-muted mb-0">Review Status</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <div class="p-3 border rounded mb-3">
-                                    <h2 class="application-status" id="application-id">--</h2>
-                                    <p class="text-muted mb-0">Application ID</p>
-                                </div>
+                        <?php if($has_application): ?>
+                        <!-- Application Status Section -->
+                        <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="portal-container">
+                                <?php if($application_data['status'] === 'submitted'): ?>
+                                    <!-- Submitted Application View -->
+                                    <div class="card">
+                                        <div class="card-header bg-primary text-white">
+                                            <h5 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Application Details</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="alert alert-success mb-4">
+                                                <i class="fas fa-check-circle me-2"></i>Your application has been submitted successfully and is currently under review.
+                                            </div>
+                                            
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th width="200">Application ID</th>
+                                                            <td><strong><?php echo htmlspecialchars($application_data['application_id']); ?></strong></td>
+                                                            <th width="200">Status</th>
+                                                            <td><span class="badge bg-primary"><?php echo ucfirst(htmlspecialchars($application_data['status'])); ?></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Full Name</th>
+                                                            <td><?php echo !empty($application_data['full_name']) ? htmlspecialchars($application_data['full_name']) : '<em>Not provided</em>'; ?></td>
+                                                            <th>Gender</th>
+                                                            <td><?php echo !empty($application_data['gender']) ? ucfirst(htmlspecialchars($application_data['gender'])) : '<em>Not provided</em>'; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Date of Birth</th>
+                                                            <td><?php echo !empty($application_data['dob']) ? date('d M Y', strtotime($application_data['dob'])) : '<em>Not provided</em>'; ?></td>
+                                                            <th>Submitted On</th>
+                                                            <td><?php echo !empty($application_data['submitted_at']) ? date('d M Y, h:i A', strtotime($application_data['submitted_at'])) : '<em>Not submitted</em>'; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>HSCE Board</th>
+                                                            <td><?php echo !empty($application_data['hsce_board']) ? htmlspecialchars($application_data['hsce_board']) : '<em>Not provided</em>'; ?></td>
+                                                            <th>HSCE Percentage</th>
+                                                            <td><?php echo !empty($application_data['hsce_percentage']) ? htmlspecialchars($application_data['hsce_percentage']) . '%' : '<em>Not provided</em>'; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>HSCE Year</th>
+                                                            <td><?php echo !empty($application_data['hsce_year']) ? htmlspecialchars($application_data['hsce_year']) : '<em>Not provided</em>'; ?></td>
+                                                            <th>Application Progress</th>
+                                                            <td>
+                                                                <div class="progress">
+                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            
+                                            <div class="mt-4">
+                                                <a href="view_application.php?id=<?php echo $application_data['id']; ?>" class="btn btn-primary">
+                                                    <i class="fas fa-eye me-2"></i>View Complete Application
+                                                </a>
+                                                <a href="download_application.php?id=<?php echo $application_data['id']; ?>" class="btn btn-success ms-2">
+                                                    <i class="fas fa-download me-2"></i>Download Application
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <!-- In Progress Application View -->
+                                    <div class="card">
+                                        <div class="card-header bg-primary text-white">
+                                            <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Application Progress</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row align-items-center mb-4">
+                                                <div class="col-md-3">
+                                                    <h6 class="mb-0">Overall Progress</h6>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="progress">
+                                                        <?php $progress = isset($application_data['progress']) ? (int)$application_data['progress'] : 0; ?>
+                                                        <div class="progress-bar" role="progressbar" style="width: <?php echo $progress; ?>%" 
+                                                             aria-valuenow="<?php echo $progress; ?>" 
+                                                             aria-valuemin="0" 
+                                                             aria-valuemax="100">
+                                                            <?php echo $progress; ?>%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Section</th>
+                                                            <th width="150">Status</th>
+                                                            <th width="100">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php foreach($sections as $section): ?>
+                                                        <tr>
+                                                            <td><?php echo htmlspecialchars($section['section_name']); ?></td>
+                                                            <td>
+                                                                <?php if($section['is_completed']): ?>
+                                                                    <span class="badge bg-success">Completed</span>
+                                                                <?php else: ?>
+                                                                    <span class="badge bg-warning">Pending</span>
+                                                                <?php endif; ?>
+                                                            </td>
+                                                            <td>
+                                                                <a href="admission-form.php#section<?php echo $section['section_id']; ?>" class="btn btn-sm btn-primary">
+                                                                    <?php echo $section['is_completed'] ? '<i class="fas fa-edit"></i>' : '<i class="fas fa-plus"></i>'; ?>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <?php endforeach; ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            
+                                            <div class="mt-4">
+                                                <a href="admission-form.php" class="btn btn-primary">
+                                                    <i class="fas fa-edit me-2"></i>Continue Application
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
-                        
-                        <!-- Form Progress -->
-                        <h5 class="mb-3">Form Completion Progress</h5>
-                        <div class="application-timeline" id="form-progress-timeline">
-                            <!-- Timeline items will be populated by JavaScript -->
-                            <div class="text-center py-4">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                <p class="mt-2">Loading application sections...</p>
+                        <?php else: ?>
+                        <!-- Start Application Section -->
+                        <div class="text-center py-5">
+                            <div class="mb-4">
+                                <i class="fas fa-file-alt text-primary" style="font-size: 4rem;"></i>
                             </div>
-                        </div>
-                        
-                        <div class="text-center mt-4">
-                            <a href="admission-form.php" class="btn btn-primary">
-                                <i class="fas fa-edit me-2"></i><span id="continue-button-text">Continue Application</span>
+                            <h4 class="mb-3">Begin Your Journey with Us</h4>
+                            <p class="text-muted mb-4">You haven't started your application yet. Click below to begin the admission process.</p>
+                            <a href="admission-form.php" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus-circle me-2"></i>Start New Application
                             </a>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="portal-sidebar mb-4">
-                        <h5 class="border-bottom pb-3 mb-3"><i class="fas fa-user-circle me-2"></i>Quick Links</h5>
-                        <ul class="nav flex-column portal-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="dashboard.php">
-                                    <i class="fas fa-tachometer-alt"></i>Dashboard
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="admission-form.html">
-                                    <i class="fas fa-edit"></i>Continue Application
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="profile.html">
-                                    <i class="fas fa-user"></i>My Profile
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="notifications.html">
-                                    <i class="fas fa-bell"></i>Notifications
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="documents.html">
-                                    <i class="fas fa-file-alt"></i>My Documents
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="help.html">
-                                    <i class="fas fa-question-circle"></i>Help & Support
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" href="includes/logout.php">
-                                    <i class="fas fa-sign-out-alt"></i>Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Important Dates -->
-                    <div class="portal-container mb-4">
-                        <h5><i class="fas fa-calendar-alt me-2"></i>Important Dates</h5>
-                        <div id="important-dates-container">
-                            <!-- Important dates will be populated by JavaScript -->
-                            <div class="text-center py-3">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                <p class="mt-2">Loading important dates...</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Notifications -->
-                    <div class="portal-container">
-                        <h5><i class="fas fa-bell me-2"></i>Notifications</h5>
-                        <div id="notifications-container">
-                            <!-- Notifications will be populated by JavaScript -->
-                            <div class="text-center py-3">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                <p class="mt-2">Loading notifications...</p>
-                            </div>
-                        </div>
-                        <div class="text-center mt-3">
-                            <a href="notifications.html" class="btn btn-sm btn-outline-primary">View All Notifications</a>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -366,220 +381,94 @@ require_once 'includes/required_auth.php';
     <!-- Dashboard Javascript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if dashboard data is available
-            if (typeof window.dashboardData === 'undefined') {
-                console.error('Dashboard data not found. Please refresh the page.');
-                return;
-            }
-            
-            const data = window.dashboardData;
-            
-            // Update user information
-            if (data.user && data.user.full_name) {
-                // Update user name in navbar
-                document.getElementById('user-name-display').textContent = data.user.full_name;
+            // Check for submission success message
+            if (typeof window.submissionSuccess !== 'undefined' && window.submissionSuccess === true) {
+                const successAlert = document.createElement('div');
+                successAlert.className = 'alert alert-success alert-dismissible fade show';
+                successAlert.innerHTML = `
+                    <strong><i class="fas fa-check-circle me-2"></i>Success!</strong> Your application has been successfully submitted.
+                    We will review your application and get back to you soon.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
                 
-                // Update welcome message
-                document.getElementById('welcome-name').textContent = data.user.first_name || 'Student';
-            }
-            
-            // Format date for display
-            function formatDate(dateString) {
-                if (!dateString) return 'N/A';
-                const date = new Date(dateString);
-                return date.toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-            }
-            
-            // Update last login date
-            if (data.user && data.user.last_login) {
-                document.getElementById('last-login-date').textContent = formatDate(data.user.last_login);
-            } else {
-                document.getElementById('last-login-date').textContent = 'First Login';
-            }
-            
-            // Update application status information
-            if (data.application) {
-                // Update progress percentage
-                const progress = data.application.progress || 0;
-                document.getElementById('application-progress').textContent = progress + '%';
-                
-                // Update status with nice formatting
-                const statusMap = {
-                    'not_started': 'Not Started',
-                    'in_progress': 'In Progress',
-                    'submitted': 'Submitted',
-                    'under_review': 'Under Review',
-                    'approved': 'Approved',
-                    'rejected': 'Rejected',
-                    'complete': 'Complete'
-                };
-                const status = statusMap[data.application.status] || data.application.status;
-                document.getElementById('application-status').textContent = status;
-                
-                // Update application ID
-                document.getElementById('application-id').textContent = data.application.application_id || 'Not Allocated';
-                
-                // Set welcome message based on status
-                let welcomeMsg = '';
-                if (data.application.status === 'not_started') {
-                    welcomeMsg = 'You have not started your application yet. Please begin your application by clicking the button below.';
-                    document.getElementById('continue-button-text').textContent = 'Start Application';
-                } else if (data.application.status === 'in_progress') {
-                    welcomeMsg = 'Your application is in progress. Please complete all sections of the admission form to finalize your application.';
-                    document.getElementById('continue-button-text').textContent = 'Continue Application';
-                } else if (data.application.status === 'submitted') {
-                    welcomeMsg = 'Your application has been submitted successfully and is awaiting review.';
-                    document.getElementById('continue-button-text').textContent = 'View Application';
-                } else if (data.application.status === 'under_review') {
-                    welcomeMsg = 'Your application is currently under review. We will notify you of any updates.';
-                    document.getElementById('continue-button-text').textContent = 'View Application';
-                } else if (data.application.status === 'approved') {
-                    welcomeMsg = 'Congratulations! Your application has been approved. Please check your email for further instructions.';
-                    document.getElementById('continue-button-text').textContent = 'View Application';
-                } else if (data.application.status === 'rejected') {
-                    welcomeMsg = 'We regret to inform you that your application has been rejected. Please check your email for more details.';
-                    document.getElementById('continue-button-text').textContent = 'View Application';
-                } else if (data.application.status === 'complete') {
-                    welcomeMsg = 'Your application process is complete. We look forward to welcoming you to our institution.';
-                    document.getElementById('continue-button-text').textContent = 'View Application';
-                }
-                document.getElementById('welcome-message').textContent = welcomeMsg;
-                
-                // Add CSS classes for status colors
-                const progressElement = document.getElementById('application-progress');
-                if (progress < 30) {
-                    progressElement.classList.add('status-incomplete');
-                } else if (progress < 100) {
-                    progressElement.classList.add('status-in-progress');
-                } else {
-                    progressElement.classList.add('status-complete');
-                }
-                
-                const statusElement = document.getElementById('application-status');
-                if (['not_started', 'rejected'].includes(data.application.status)) {
-                    statusElement.classList.add('status-incomplete');
-                } else if (['in_progress', 'submitted', 'under_review'].includes(data.application.status)) {
-                    statusElement.classList.add('status-pending');
-                } else {
-                    statusElement.classList.add('status-complete');
+                const contentContainer = document.querySelector('.col-lg-12.wow.fadeInUp');
+                if (contentContainer) {
+                    contentContainer.parentNode.insertBefore(successAlert, contentContainer);
                 }
             }
             
-            // Update form progress timeline
-            if (data.sections && data.sections.length > 0) {
-                const timelineContainer = document.getElementById('form-progress-timeline');
-                timelineContainer.innerHTML = ''; // Clear loading spinner
+            // Load user data if available
+            if (typeof window.userData !== 'undefined' && window.userData !== null) {
+                const userName = window.userData.first_name + ' ' + window.userData.last_name;
                 
-                let currentFound = false;
+                const userNameDisplay = document.getElementById('user-name-display');
+                if (userNameDisplay) {
+                    userNameDisplay.textContent = userName;
+                }
                 
-                data.sections.forEach((section, index) => {
-                    // Determine section status
-                    let timelineClass = '';
-                    let statusText = '';
-                    let dateText = '';
-                    
-                    if (section.is_completed) {
-                        timelineClass = 'complete';
-                        statusText = 'Completed';
-                        dateText = section.updated_at ? 'Completed on ' + formatDate(section.updated_at).split(',')[0] : 'Completed';
-                    } else if (!currentFound) {
-                        timelineClass = 'current';
-                        statusText = 'In progress';
-                        dateText = 'Current section';
-                        currentFound = true;
-                    } else {
-                        timelineClass = '';
-                        statusText = 'Not started';
-                        dateText = 'Pending';
-                    }
-                    
-                    // Create timeline item
-                    const timelineItem = document.createElement('div');
-                    timelineItem.className = `timeline-item ${timelineClass}`;
-                    
-                    timelineItem.innerHTML = `
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-date">${dateText}</div>
-                            <div class="timeline-title">${section.section_name}</div>
-                            <div class="timeline-description">${statusText}</div>
-                        </div>
-                    `;
-                    
-                    timelineContainer.appendChild(timelineItem);
-                });
+                const lastLoginDate = document.getElementById('last-login-date');
+                if (lastLoginDate && window.userData.last_login) {
+                    lastLoginDate.textContent = new Date(window.userData.last_login).toLocaleString();
+                }
             }
             
-            // Update important dates
-            if (data.important_dates && data.important_dates.length > 0) {
-                const datesContainer = document.getElementById('important-dates-container');
-                datesContainer.innerHTML = ''; // Clear loading spinner
-                
-                // Create list group for dates
-                const listGroup = document.createElement('div');
-                listGroup.className = 'list-group list-group-flush';
-                
-                data.important_dates.forEach(date => {
-                    const formattedDate = new Date(date.event_date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
+            // Load important dates
+            const importantDatesContainer = document.getElementById('important-dates-container');
+            if (importantDatesContainer) {
+                fetch('includes/get_important_dates.php')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success && data.data && data.data.length > 0) {
+                            importantDatesContainer.innerHTML = '';
+                            data.data.forEach(date => {
+                                const dateCard = document.createElement('div');
+                                dateCard.className = 'date-card mb-2 p-2 border rounded';
+                                
+                                const formattedDate = new Date(date.date).toLocaleDateString('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'short', 
+                                    day: 'numeric' 
+                                });
+                                
+                                let statusClass = 'primary';
+                                if (date.status === 'passed') {
+                                    statusClass = 'secondary';
+                                } else if (date.status === 'today') {
+                                    statusClass = 'success';
+                                }
+                                
+                                dateCard.innerHTML = `
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="mb-0 fw-bold">${date.title}</p>
+                                            <small class="text-muted">${formattedDate}</small>
+                                        </div>
+                                        <span class="badge bg-${statusClass}">
+                                            ${date.status.charAt(0).toUpperCase() + date.status.slice(1)}
+                                        </span>
+                                    </div>
+                                `;
+                                
+                                importantDatesContainer.appendChild(dateCard);
+                            });
+                        } else {
+                            throw new Error(data.message || 'No important dates available');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching important dates:', error);
+                        importantDatesContainer.innerHTML = `
+                            <div class="alert alert-danger mb-0">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                Error loading important dates. Please try again later.
+                            </div>
+                        `;
                     });
-                    
-                    const dateItem = document.createElement('div');
-                    dateItem.className = 'list-group-item px-0';
-                    dateItem.innerHTML = `
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">${date.title}</h6>
-                            <small class="text-primary">${formattedDate}</small>
-                        </div>
-                        <p class="mb-1 small">${date.description}</p>
-                    `;
-                    
-                    listGroup.appendChild(dateItem);
-                });
-                
-                datesContainer.appendChild(listGroup);
-            }
-            
-            // Update notifications
-            if (data.notifications && data.notifications.length > 0) {
-                const notificationsContainer = document.getElementById('notifications-container');
-                notificationsContainer.innerHTML = ''; // Clear loading spinner
-                
-                // Create list for notifications
-                const listGroup = document.createElement('div');
-                listGroup.className = 'list-group list-group-flush';
-                
-                data.notifications.forEach(notification => {
-                    const formattedDate = formatDate(notification.created_at).split(',')[0];
-                    
-                    const notificationItem = document.createElement('div');
-                    notificationItem.className = 'list-group-item px-0';
-                    
-                    // Add unread indicator if notification is not read
-                    if (!notification.is_read) {
-                        notificationItem.classList.add('notification-unread');
-                    }
-                    
-                    notificationItem.innerHTML = `
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">${notification.title}</h6>
-                            <small class="text-muted">${formattedDate}</small>
-                        </div>
-                        <p class="mb-1 small">${notification.message}</p>
-                    `;
-                    
-                    listGroup.appendChild(notificationItem);
-                });
-                
-                notificationsContainer.appendChild(listGroup);
             }
         });
     </script>

@@ -32,8 +32,8 @@ try {
     die("Database connection error: " . $e->getMessage());
 }
 
-// Note: Each script should manage its own connection closure
-// Do not register a shutdown function here as it can cause issues with multiple inclusions
+// Don't register a shutdown function as each script should manage its own connection closure
+// This prevents issues with multiple inclusions and premature closures
 ?> 
  
  

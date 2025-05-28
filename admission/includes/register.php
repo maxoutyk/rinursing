@@ -2,6 +2,9 @@
 // Start session
 session_start();
 
+// Start output buffering
+ob_start();
+
 // Database connection
 require_once 'db_connect.php';
 // Email utilities
@@ -9,7 +12,7 @@ require_once 'mail_utils.php';
 
 // Add error logging for debugging
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/register_errors.log');
 
@@ -150,8 +153,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Send verification email using the mail utility
                 $emailResult = sendVerificationEmail($email, $firstName, $verificationToken);
                 
-                // For demo purposes, we'll just simulate success even if email fails
-                // In production, you would handle this differently
                 if (!$emailResult['success']) {
                     // Log the error but continue
                     error_log("Failed to send verification email: {$emailResult['message']}");
@@ -166,9 +167,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['temp_user_id'] = $userId;
                 $_SESSION['temp_email'] = $email;
                 
-                // Redirect to confirmation page with success status
-                $redirectUrl = '../registration-confirmation.html?status=' . urlencode(json_encode($response));
-                header('Location: ' . $redirectUrl);
+                // Store registration status in session
+                $_SESSION['registration_status'] = $response;
+                
+                // Clean output buffer
+                ob_end_clean();
+                
+                // Redirect to confirmation page
+                header('Location: ../registration-confirmation.php');
                 exit;
             } else {
                 $errors[] = 'Registration failed: ' . $stmt->error;
@@ -187,14 +193,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response['errors'] = $errors;
     $response['message'] = 'Please correct the errors and try again.';
     
-    // Redirect to confirmation page with error status
-    $redirectUrl = '../registration-confirmation.html?status=' . urlencode(json_encode($response));
-    header('Location: ' . $redirectUrl);
+    // Store registration status in session
+    $_SESSION['registration_status'] = $response;
+    
+    // Clean output buffer
+    ob_end_clean();
+    
+    // Redirect to confirmation page
+    header('Location: ../registration-confirmation.php');
     exit;
 }
 
+// Clean output buffer
+ob_end_clean();
+
 // If not a POST request, redirect to registration page
-header('Location: ../register.html');
+header('Location: ../register.php');
 exit;
 ?> 
  

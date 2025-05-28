@@ -217,14 +217,19 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 // Show error message
                 console.log('Login failed:', data.errors || data.message);
-                if (data.message) {
-                    showAlert(data.message, 'danger');
-                }
-                
-                // Show individual errors if available
                 if (data.errors && data.errors.length > 0) {
                     data.errors.forEach(error => {
+                        if (error.includes('not verified')) {
+                            // Show error with resend button for unverified accounts
+                            showAlertWithAction(
+                                error,
+                                'warning',
+                                '<i class="fas fa-envelope me-1"></i> Resend Verification Email',
+                                () => resendVerificationEmail(emailInput.value.trim())
+                            );
+                        } else {
                         showAlert(error, 'danger');
+                        }
                     });
                 }
             }
@@ -319,7 +324,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show individual errors if available
                 if (data.errors && data.errors.length > 0) {
                     data.errors.forEach(error => {
+                        if (error.includes('not verified')) {
+                            // Show error with resend button for unverified accounts
+                            showAlertWithAction(
+                                error,
+                                'warning',
+                                '<i class="fas fa-envelope me-1"></i> Resend Verification Email',
+                                () => resendVerificationEmail(emailInput.value.trim())
+                            );
+                        } else {
                         showAlert(error, 'danger');
+                        }
                     });
                 }
             }
@@ -341,6 +356,67 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             return `${username.substring(0, 2)}${'*'.repeat(username.length - 2)}@${domain}`;
         }
+    }
+    
+    // Function to show alert with optional action button
+    function showAlertWithAction(message, type, actionText, actionCallback) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.setAttribute('role', 'alert');
+        
+        let alertContent = message;
+        if (actionText && actionCallback) {
+            alertContent += `
+                <div class="mt-2">
+                    <button type="button" class="btn btn-${type} btn-sm" id="alertActionBtn">
+                        ${actionText}
+                    </button>
+                </div>
+            `;
+        }
+        
+        alertDiv.innerHTML = alertContent;
+        alertsContainer.appendChild(alertDiv);
+        
+        if (actionText && actionCallback) {
+            document.getElementById('alertActionBtn').addEventListener('click', actionCallback);
+        }
+    }
+    
+    // Function to resend verification email
+    function resendVerificationEmail(email) {
+        // Show loading
+        showAlert('Sending verification email...', 'info');
+        
+        // Build form data
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('resendVerification', 'true');
+        
+        // Send the request
+        fetch(loginForm.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Clear existing alerts
+            alertsContainer.innerHTML = '';
+            
+            if (data.success) {
+                showAlert(data.message || 'Verification email sent successfully. Please check your inbox.', 'success');
+            } else {
+                if (data.message) {
+                    showAlert(data.message, 'danger');
+                } else {
+                    showAlert('Failed to send verification email. Please try again.', 'danger');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error resending verification email:', error);
+            showAlert('An error occurred. Please try again.', 'danger');
+        });
     }
     
     // Function to show alerts

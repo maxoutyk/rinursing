@@ -1,21 +1,36 @@
+<?php
+// Start session
+session_start();
+
+// Define constant to indicate this file was included properly
+define('INCLUDED', true);
+
+// Check if user came from registration process
+if (!isset($_SESSION['registration_status'])) {
+    // If no registration status in session, redirect to registration page
+    header('Location: register.php');
+    exit;
+}
+
+// Get status from session
+$status = $_SESSION['registration_status'];
+
+// Clear the session data after retrieving it
+unset($_SESSION['registration_status']);
+
+// Make status available to the HTML template
+$statusJson = json_encode($status);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Regional Institute of Nursing - Login</title>
+    <title>Regional Institute of Nursing - Registration Confirmation</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Login, Nursing Institute" name="keywords">
-    <meta content="Regional Institute of Nursing Login" name="description">
-    
-    <!-- Immediate redirect if directly accessed -->
-    <script>
-        // Check if we're being loaded directly (not through PHP include)
-        if (typeof window.__INCLUDED__ === 'undefined') {
-            window.location.replace('register.php');
-        }
-    </script>
-    
+    <meta content="Registration Confirmation" name="keywords">
+    <meta content="Registration Confirmation for Regional Institute of Nursing" name="description">
+
     <!-- Favicon -->
     <link href="../img/favicon.ico" rel="icon">
 
@@ -40,9 +55,6 @@
     
     <!-- Admission CSS -->
     <link href="css/admission.css" rel="stylesheet">
-    
-    <!-- reCAPTCHA API -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -54,14 +66,11 @@
     </div>
     <!-- Spinner End -->
 
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="../index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <img class="d-none d-md-block d-lg-block" src="../img/rin_logo_new.png" width="75" height="73" alt="Logo">
-            <h2 class="m-0 text-primary">
-                Regional Institute of Nursing
-            </h2>
+            <h2 class="m-0 text-primary">Regional Institute of Nursing</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -101,116 +110,41 @@
     </nav>
     <!-- Navbar End -->
 
-<!-- Portal Header Start -->
-<div class="portal-header">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <h2><i class="fas fa-user-plus me-2"></i>User Registration</h2>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <span class="text-white">Already have an account? <a href="login.html" class="text-white text-decoration-underline">Sign In</a></span>
+    <!-- Portal Header Start -->
+    <div class="portal-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2><i class="fas fa-check-circle me-2"></i>Registration Status</h2>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <span class="text-white">Already have an account? <a href="login.php" class="text-white text-decoration-underline">Sign In</a></span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Portal Header End -->
+    <!-- Portal Header End -->
 
-
-<!-- Registration Start -->
-<div class="container-xxl py-5">
-    <div class="container">
-        <div class="text-center mb-4 wow fadeInUp" data-wow-delay="0.1s">
-            <h4 class="mb-3">Create an Account</h4>
-            <p>Please register to start your admission application. This account will allow you to save your progress and return later to complete your application.</p>
-        </div>
-        
-        <div class="row g-4 justify-content-center">
-            <div class="col-lg-6 col-md-10 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="portal-container">
-                    <form id="registrationForm" action="includes/register.php" method="post" novalidate>
-                        <div id="registration-alerts" aria-live="polite"></div>
-                        
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your First Name" required>
-                                    <label for="firstName">First Name</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your Last Name" required>
-                                    <label for="lastName">Last Name</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
-                                    <label for="email">Email Address</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your Phone Number" required>
-                                    <label for="phone">Phone Number</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" required>
-                                    <label for="password">Password</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
-                                    <label for="confirmPassword">Confirm Password</label>
-                                </div>
-                            </div>
-                            <div class="col-12 password-strength mt-3">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small class="form-text text-muted">Password must be at least 8 characters with a combination of letters, numbers and special characters.</small>
-                            </div>
-                            <div class="col-12 mt-4">
-                                <label class="mb-2">Security Verification</label>
-                                <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
-                                <small class="form-text text-danger captcha-error" style="display: none;">Please complete the CAPTCHA verification</small>
-                                <small class="form-text text-muted">This helps protect our site from automated bots.</small>
-                            </div>
-                            <div class="col-12 mt-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="termsAgree" name="termsAgree" required>
-                                    <label class="form-check-label" for="termsAgree">
-                                        I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a> and <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Register</button>
-                            </div>
+    <!-- Confirmation Content Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-8 col-md-10 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="confirmation-container text-center">
+                        <div class="confirmation-message">
+                            <!-- Status message will be inserted here by JavaScript -->
                         </div>
-                    </form>
-                    
-                    <!-- Form submission overlay - will be shown when form is being processed -->
-                    <div id="formOverlay" class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center" style="display: none !important; z-index: 9999;">
-                        <div class="bg-white p-4 rounded-3 text-center" style="max-width: 400px;">
-                            <div class="spinner-border text-primary mb-3" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            <h5>Processing Your Registration</h5>
-                            <p class="mb-0">Please wait while we create your account...</p>
+                        <div class="mt-5">
+                            <a href="login.php" class="btn btn-primary btn-proceed">
+                                <i class="fas fa-sign-in-alt me-2"></i>Proceed to Login
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Registration End -->
-
+    <!-- Confirmation Content End -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -289,10 +223,8 @@
     </div>
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -304,8 +236,41 @@
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
-    
-    <!-- Registration JavaScript -->
-    <script src="js/registration.js"></script>
+
+    <script>
+    // Handle registration status message
+    document.addEventListener('DOMContentLoaded', function() {
+        const status = <?php echo $statusJson; ?>;
+        const messageDiv = document.querySelector('.confirmation-message');
+        
+        if (status.success) {
+            messageDiv.innerHTML = `
+                <div class="confirmation-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading mb-3">Registration Successful!</h4>
+                    <p class="mb-0">${status.message}</p>
+                </div>`;
+        } else {
+            messageDiv.innerHTML = `
+                <div class="confirmation-icon error">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading mb-3">Registration Failed</h4>
+                    <p>${status.message}</p>`;
+            
+            if (status.errors && status.errors.length > 0) {
+                messageDiv.innerHTML += `
+                    <ul class="mt-3 text-start">
+                        ${status.errors.map(error => `<li>${error}</li>`).join('')}
+                    </ul>`;
+            }
+            
+            messageDiv.innerHTML += '</div>';
+        }
+    });
+    </script>
 </body>
 </html> 

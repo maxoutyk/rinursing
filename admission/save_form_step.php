@@ -319,18 +319,25 @@ function saveParentGuardian($conn, $applicationId, $data) {
         
         // Save guardian's details if provided
         if (isset($data['guardianName']) && !empty($data['guardianName'])) {
-            $query = "INSERT INTO guardians (application_id, relationship, name, occupation, phone, email) 
-                      VALUES (?, 'guardian', ?, ?, ?, ?) 
+            $query = "INSERT INTO guardians (application_id, relationship, relation_to_applicant, name, occupation, phone, email, address) 
+                      VALUES (?, 'guardian', ?, ?, ?, ?, ?, ?) 
                       ON DUPLICATE KEY UPDATE name = VALUES(name), occupation = VALUES(occupation), 
-                                              phone = VALUES(phone), email = VALUES(email)";
+                                              phone = VALUES(phone), email = VALUES(email),
+                                              relation_to_applicant = VALUES(relation_to_applicant),
+                                              address = VALUES(address)";
             
             $stmt = $conn->prepare($query);
             $guardianOccupation = $data['guardianOccupation'] ?? '';
             $guardianMobile = $data['guardianMobile'] ?? '';
             $guardianEmail = $data['guardianEmail'] ?? '';
+            // Check both possible field names for relation
+            $guardianRelation = $data['relationToApplicant'] ?? $data['guardianRelation'] ?? '';
+            $guardianAddress = $data['guardianAddress'] ?? '';
             
-            $stmt->bind_param("issss", $applicationId, $data['guardianName'], $guardianOccupation, 
-                             $guardianMobile, $guardianEmail);
+            error_log("Guardian Data - Relation: " . $guardianRelation . ", Address: " . $guardianAddress);
+            
+            $stmt->bind_param("issssss", $applicationId, $guardianRelation, $data['guardianName'], 
+                             $guardianOccupation, $guardianMobile, $guardianEmail, $guardianAddress);
             
             if (!$stmt->execute()) {
                 throw new Exception('Failed to save guardian details: ' . $stmt->error);
@@ -561,6 +568,11 @@ function saveEducation($conn, $applicationId, $data, $level) {
         if ($row = $result->fetch_assoc()) {
             $educationId = $row['id'];
         }
+    }
+    
+    // For debugging the other qualification
+    if ($level === 'other') {
+        error_log("Saved other qualification with name: $qualificationName");
     }
     
     // Save subject-wise marks for 12th

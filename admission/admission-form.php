@@ -106,7 +106,7 @@ try {
             }
             
             // Education (10th & 12th)
-            $query = "SELECT id, level, board_university, school_college, year_of_passing, percentage, subjects, 
+            $query = "SELECT id, level, qualification_name, board_university, school_college, year_of_passing, percentage, subjects, 
                      total_marks, marks_obtained, mode, remarks 
                      FROM education WHERE application_id = ?";
             $stmt = $conn->prepare($query);

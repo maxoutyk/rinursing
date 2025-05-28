@@ -102,7 +102,7 @@ function loadBasicInformation($conn, $applicationId) {
  * Load parent/guardian data
  */
 function loadParentGuardian($conn, $applicationId) {
-    $query = "SELECT relationship, name, occupation, phone, email FROM guardians WHERE application_id = ?";
+    $query = "SELECT relationship, name, occupation, phone, email, relation_to_applicant, address FROM guardians WHERE application_id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $applicationId);
     $stmt->execute();
@@ -185,6 +185,11 @@ function loadEducation($conn, $applicationId, $level) {
     
     if ($result && $result->num_rows > 0) {
         $data = $result->fetch_assoc();
+        
+        // Add debug log for other qualification
+        if ($level === 'other' && isset($data['qualification_name'])) {
+            error_log("Loading other qualification with name: " . $data['qualification_name']);
+        }
         
         // For 12th grade, also load subject-wise marks
         if ($level === '12th') {
